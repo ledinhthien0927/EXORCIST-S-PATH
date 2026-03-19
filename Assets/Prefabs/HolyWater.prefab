@@ -1,0 +1,171 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &573305542670998723
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.533
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.881
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.526
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.000000037748947
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      propertyPath: m_Name
+      value: HolyWater
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4548845888888806826}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8789593714635413258}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2650307589981457660}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3895310917150185492}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2692226765067107932}
+  m_SourcePrefab: {fileID: 100100000, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+--- !u!1 &807731527300931986 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d900f5173cd85ef4488a6938013a54a4, type: 3}
+  m_PrefabInstance: {fileID: 573305542670998723}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &4548845888888806826
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807731527300931986}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.06250031, y: 0.16286594, z: 0.07925421}
+  m_Center: {x: -0.00059953984, y: 0.08143297, z: -0.007894902}
+--- !u!54 &-8789593714635413258
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807731527300931986}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-2650307589981457660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807731527300931986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71987d20ca8b1e04cbe2e3a38dc173d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: -8789593714635413258}
+  colliders:
+  - {fileID: 4548845888888806826}
+  localPosition: {x: 0, y: 0, z: 0}
+  localRotation: {x: 0, y: 0, z: 0}
+--- !u!114 &3895310917150185492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807731527300931986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15bb66f2264880146871f3415d54d905, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemName: Holy Water
+--- !u!114 &2692226765067107932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807731527300931986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b46e1a71ee97b4da6fa6364a376be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolType: 4
+  maxUses: 0

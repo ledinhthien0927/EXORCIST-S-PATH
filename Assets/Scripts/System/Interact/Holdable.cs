@@ -14,6 +14,8 @@ public sealed class Holdable : MonoBehaviour, IHoldable
     private Transform currentHoldPoint;
     private bool isHeld;
 
+    public bool IsHeld => isHeld;
+
     private void Reset()
     {
         rb = GetComponent<Rigidbody>();

@@ -45,13 +45,11 @@ namespace ExorcistPath.Core.Managers
             // Notify subscribers (like UI) that the value changed
             OnPurificationChanged?.Invoke(currentPurificationPercentage);
 
-            // Debug log as requested for testing
             Debug.Log($"[GameManager] Purification Updated: {currentPurificationPercentage}%");
 
             if (currentPurificationPercentage >= 100f)
             {
-                Debug.Log("[GameManager] Purification Complete! House is fully cleansed.");
-                // Trigger 100% logic here later (e.g., Allow level completion)
+                Debug.Log("Game Win");
             }
         }
 

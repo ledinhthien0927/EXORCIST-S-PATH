@@ -11,6 +11,10 @@ public sealed class Holdable : MonoBehaviour, IHoldable
     [SerializeField] private Vector3 localPosition = Vector3.zero;
     [SerializeField] private Vector3 localRotation = Vector3.zero;
 
+    [Header("Hand Pose")]
+    [SerializeField] private HandPoseType handPose = HandPoseType.Default;
+    [SerializeField] private HandPoseManager handPoseManager;
+
     private Transform currentHoldPoint;
     private bool isHeld;
 
@@ -53,6 +57,11 @@ public sealed class Holdable : MonoBehaviour, IHoldable
         transform.SetParent(holdPoint, true);
         transform.localPosition = localPosition;
         transform.localRotation = Quaternion.Euler(localRotation);
+
+        if (handPoseManager != null)
+            handPoseManager.SetPose(handPose);
+
+        GetComponent<HolyWaterRevealAbility>()?.SetHeld(true);
     }
 
     public void OnDrop(Vector3 worldPosition)
@@ -70,6 +79,11 @@ public sealed class Holdable : MonoBehaviour, IHoldable
         }
 
         SetColliders(true);
+
+        if (handPoseManager != null)
+            handPoseManager.ResetToDefault();
+
+        GetComponent<HolyWaterRevealAbility>()?.SetHeld(false);
     }
 
     private void SetColliders(bool enabled)

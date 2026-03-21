@@ -73,6 +73,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e176e19cbfb7eab4abfe60b1b787844a, type: 3}
+--- !u!23 &1133100877142279958 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: e176e19cbfb7eab4abfe60b1b787844a, type: 3}
+  m_PrefabInstance: {fileID: 1763159938594331538}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1493340538300032707 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e176e19cbfb7eab4abfe60b1b787844a, type: 3}
@@ -97,15 +102,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ceff9ec63dc8a24f824675a6b063868, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.803
+      value: -1.7324095
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ceff9ec63dc8a24f824675a6b063868, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.9473495
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ceff9ec63dc8a24f824675a6b063868, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.898
+      value: 9.401638
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ceff9ec63dc8a24f824675a6b063868, type: 3}
       propertyPath: m_LocalRotation.w
@@ -117,7 +122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ceff9ec63dc8a24f824675a6b063868, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ceff9ec63dc8a24f824675a6b063868, type: 3}
       propertyPath: m_LocalRotation.z
@@ -240,9 +245,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 2102093124116746098}
   colliders:
-  - {fileID: 0}
+  - {fileID: 7885265187578446997}
   localPosition: {x: 0, y: -0.4, z: 0.3}
   localRotation: {x: -35, y: 0, z: 0}
+  handPose: 2
+  handPoseManager: {fileID: 0}
 --- !u!114 &814625279753519588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,9 +296,9 @@ MonoBehaviour:
   spillWhenTilted: 1
   spillAngle: 60
   onlySpillWhenNotHeld: 1
-  waterRenderer: {fileID: 0}
-  normalWaterColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0.5}
-  holyWaterColor: {r: 0.6, g: 1, b: 1, a: 0.8}
+  waterRenderer: {fileID: 1133100877142279958}
+  normalWaterColor: {r: 0, g: 0.5698323, b: 1, a: 0.5}
+  holyWaterColor: {r: 0, g: 1, b: 0.6382046, a: 0.8}
 --- !u!114 &5926816419488530122
 MonoBehaviour:
   m_ObjectHideFlags: 0

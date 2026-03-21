@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 11b160ccdf52bd940a2ab2e4fde6b242, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.231
+      value: -1.1754093
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 11b160ccdf52bd940a2ab2e4fde6b242, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.9473495
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 11b160ccdf52bd940a2ab2e4fde6b242, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.622
+      value: 9.490639
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 11b160ccdf52bd940a2ab2e4fde6b242, type: 3}
       propertyPath: m_LocalRotation.w
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 11b160ccdf52bd940a2ab2e4fde6b242, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 11b160ccdf52bd940a2ab2e4fde6b242, type: 3}
       propertyPath: m_LocalRotation.z
@@ -118,9 +118,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4027726953467822909}
   colliders:
-  - {fileID: 0}
-  localPosition: {x: 0, y: 0.5, z: 0}
-  localRotation: {x: 180, y: 0, z: 0}
+  - {fileID: 2770485538813894176}
+  localPosition: {x: -0.1, y: 0.5, z: 0}
+  localRotation: {x: 180, y: 0, z: -14}
+  handPose: 0
+  handPoseManager: {fileID: 0}
 --- !u!114 &2867910323582655569
 MonoBehaviour:
   m_ObjectHideFlags: 0

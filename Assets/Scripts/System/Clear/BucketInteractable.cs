@@ -58,6 +58,18 @@ public class BucketInteractable : MonoBehaviour, IInteractable
         {
             bool success = bucket.BlessWater();
             Debug.Log("Trying to pour holy water -> " + success);
+
+            if (success)
+            {
+                HolyWaterRevealAbility holyWater =
+                    interactor.Inventory.GetHeldComponent<HolyWaterRevealAbility>();
+
+                if (holyWater != null)
+                {
+                    holyWater.ConsumeAfterUse();
+                }
+            }
+
             return;
         }
 

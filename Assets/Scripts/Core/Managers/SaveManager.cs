@@ -6,6 +6,9 @@ namespace ExorcistPath.Core.Managers
     {
         public static SaveManager Instance { get; private set; }
 
+        public delegate void CoinsChangedHandler(int newTotal);
+        public event CoinsChangedHandler OnCoinsChanged;
+
         private const string HIGHEST_UNLOCKED_MAP_KEY = "HighestUnlockedMap";
         private const string TOTAL_COINS_KEY = "TotalCoins";
 
@@ -77,6 +80,8 @@ namespace ExorcistPath.Core.Managers
             PlayerPrefs.Save();
             Debug.Log($"[SaveManager] Added {amount} coins. New Total: {currentCoins}");
 
+            OnCoinsChanged?.Invoke(currentCoins);
+
             // Automatically check if this new balance unlocks a map
             CheckAutoUnlock();
         }
@@ -109,14 +114,17 @@ namespace ExorcistPath.Core.Managers
         }
 
         /// <summary>
-        /// Optional: Resets all save progress (used for debugging or settings).
+        /// Resets all save progress, including unlocked maps and coins.
+        /// Used for starting a New Game.
         /// </summary>
         public void ResetProgress()
         {
             PlayerPrefs.DeleteKey(HIGHEST_UNLOCKED_MAP_KEY);
             PlayerPrefs.DeleteKey(TOTAL_COINS_KEY);
             PlayerPrefs.Save();
-            Debug.Log("[SaveManager] Game progress has been reset.");
+            Debug.Log("[SaveManager] Game progress and coins have been reset.");
+
+            OnCoinsChanged?.Invoke(0);
         }
     }
 }

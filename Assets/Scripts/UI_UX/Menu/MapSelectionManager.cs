@@ -1,3 +1,4 @@
+using System.Collections;
 using ExorcistPath.Core.Managers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,14 @@ namespace ExorcistPath.UI_UX.Menu
         [Header("Coin UI")]
         [Tooltip("The text component displaying the player's total coins.")]
         [SerializeField] private TextMeshProUGUI totalCoinText;
+
+        [Header("Fade Settings")]
+        [Tooltip("Reference to a full screen black Image used as fade overlay.")]
+        [SerializeField] private Image fadeOverlay;
+        [Tooltip("Duration (in seconds) for fading to black before scene load.")]
+        [SerializeField] private float fadeOutDuration = 0.6f;
+
+        private bool isBusy;
 
         private void Start()
         {
@@ -64,7 +73,7 @@ namespace ExorcistPath.UI_UX.Menu
 
                     // Add click listener to load the scene
                     mapButtons[i].onClick.RemoveAllListeners();
-                    mapButtons[i].onClick.AddListener(() => LoadMapScene(mapLevel));
+                    mapButtons[i].onClick.AddListener(() => OnMapButtonClicked(mapLevel));
                 }
                 else
                 {
@@ -76,15 +85,56 @@ namespace ExorcistPath.UI_UX.Menu
             }
         }
 
-        /// <summary>
-        /// Loads the scene corresponding to the map level.
-        /// Convention: Map_01, Map_02, etc.
-        /// </summary>
-        private void LoadMapScene(int mapLevel)
+        private void OnMapButtonClicked(int mapLevel)
         {
-            string sceneName = $"Map_{mapLevel:D2}"; // Formats 1 to "01", 2 to "02"
+            if (isBusy) return;
+            StartCoroutine(LoadMapRoutine(mapLevel));
+        }
+
+        private IEnumerator LoadMapRoutine(int mapLevel)
+        {
+            isBusy = true;
+            
+            // Optional: Disable all map buttons during fade
+            foreach (var btn in mapButtons) if (btn != null) btn.interactable = false;
+
+            // Fade screen to black
+            if (fadeOverlay != null)
+            {
+                yield return FadeToBlack(1f, fadeOutDuration);
+            }
+
+            // Load the map scene
+            string sceneName = $"Map_{mapLevel:D2}";
             Debug.Log($"[MapSelectionManager] Loading scene: {sceneName}");
             SceneManager.LoadScene(sceneName);
+        }
+
+        private IEnumerator FadeToBlack(float targetAlpha, float duration)
+        {
+            if (fadeOverlay == null) yield break;
+
+            float startAlpha = fadeOverlay.color.a;
+            float timer = 0f;
+
+            while (timer < duration)
+            {
+                timer += Time.unscaledDeltaTime;
+                float alpha = Mathf.Lerp(startAlpha, targetAlpha, timer / duration);
+                SetFadeAlpha(alpha);
+                yield return null;
+            }
+
+            SetFadeAlpha(targetAlpha);
+        }
+
+        private void SetFadeAlpha(float alpha)
+        {
+            if (fadeOverlay == null) return;
+            Color color = fadeOverlay.color;
+            color.a = Mathf.Clamp01(alpha);
+            fadeOverlay.color = color;
+            fadeOverlay.raycastTarget = color.a > 0.01f;
         }
 
         /// <summary>

@@ -39,6 +39,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Map_04.unity
     guid: 0c6bf9adde5b7ad49a17b8a6c573a5da
   m_configObjects:
-    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 9227e98e4b6e046c5b175924d7b5d070, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 8d4ce2016f5d86741a5f26d12e82137b, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

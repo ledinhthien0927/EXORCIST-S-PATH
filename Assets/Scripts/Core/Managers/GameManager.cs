@@ -20,6 +20,9 @@ namespace ExorcistPath.Core.Managers
         // Event triggered when purification changes. UI systems should subscribe to this.
         public event Action<float> OnPurificationChanged;
 
+        // Event triggered when the game is won. Useful for cutscenes and win sequences.
+        public event Action OnGameWon;
+
         private void Awake()
         {
             // Standard Singleton setup
@@ -89,6 +92,7 @@ namespace ExorcistPath.Core.Managers
             }
 
             // Implement other post-game logic here (e.g., show victory UI)
+            OnGameWon?.Invoke();
         }
 
         /// <summary>

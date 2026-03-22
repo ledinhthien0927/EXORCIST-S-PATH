@@ -1,4 +1,5 @@
 using UnityEngine;
+using ExorcistPath.Core.Managers;
 
 public class RitualManagerSimple : MonoBehaviour
 {
@@ -23,5 +24,15 @@ public class RitualManagerSimple : MonoBehaviour
             glowEffect.SetActive(true);
 
         Debug.Log("Ritual Completed ??");
+
+        if (GameManager.Instance != null)
+        {
+            // The GDD requirement states that completing the ritual gives the rest of the purification.
+            // Add 100f to ensure it reaches 100% (GameManager clamps it to 100).
+            GameManager.Instance.AddPurification(100f);
+            
+            // Winning the game
+            GameManager.Instance.WinGame();
+        }
     }
 }

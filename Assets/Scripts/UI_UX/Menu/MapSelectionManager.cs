@@ -65,9 +65,9 @@ namespace ExorcistPath.UI_UX.Menu
 
                 int mapLevel = i + 1; // Maps are 1-indexed
 
+                // 1. Map is already unlocked
                 if (mapLevel <= highestUnlockedMap)
                 {
-                    // Map is unlocked
                     mapButtons[i].interactable = true;
                     SetButtonAlpha(mapButtons[i], 1f);
 
@@ -75,13 +75,52 @@ namespace ExorcistPath.UI_UX.Menu
                     mapButtons[i].onClick.RemoveAllListeners();
                     mapButtons[i].onClick.AddListener(() => OnMapButtonClicked(mapLevel));
                 }
+                // 2. Map is the NEXT one to unlock
+                else if (mapLevel == highestUnlockedMap + 1)
+                {
+                    int price = SaveManager.Instance != null ? SaveManager.Instance.GetMapPrice(mapLevel) : 9999999;
+                    int totalCoins = SaveManager.Instance != null ? SaveManager.Instance.GetTotalCoins() : PlayerPrefs.GetInt("TotalCoins", 0);
+
+                    if (totalCoins >= price)
+                    {
+                        // Can afford to buy
+                        mapButtons[i].interactable = true;
+                        SetButtonAlpha(mapButtons[i], 1f); // Maybe slightly different visual to indicate purchasable?
+                        
+                        mapButtons[i].onClick.RemoveAllListeners();
+                        mapButtons[i].onClick.AddListener(() => OnPurchaseMapClicked(mapLevel));
+                    }
+                    else
+                    {
+                        // Cannot afford
+                        mapButtons[i].interactable = false;
+                        SetButtonAlpha(mapButtons[i], lockedAlpha);
+                        mapButtons[i].onClick.RemoveAllListeners();
+                    }
+                }
+                // 3. Map is locked and not next in line
                 else
                 {
-                    // Map is locked
                     mapButtons[i].interactable = false;
                     SetButtonAlpha(mapButtons[i], lockedAlpha);
                     mapButtons[i].onClick.RemoveAllListeners();
                 }
+            }
+        }
+
+        private void OnPurchaseMapClicked(int mapLevel)
+        {
+            if (isBusy) return;
+
+            if (SaveManager.Instance != null && SaveManager.Instance.TryPurchaseMap(mapLevel))
+            {
+                Debug.Log($"[MapSelectionManager] Map {mapLevel} purchased successfully!");
+                // Refresh buttons (it will now fall into the 'unlocked' category)
+                UpdateMapButtons();
+            }
+            else
+            {
+                Debug.LogWarning($"[MapSelectionManager] Cannot purchase Map {mapLevel}. Not enough coins or error.");
             }
         }
 

@@ -24,12 +24,6 @@ namespace ExorcistPath.Core.Managers
             DontDestroyOnLoad(gameObject);
         }
 
-        private void Start()
-        {
-            // Check for unlocks initially in case coins were added offline or via debug
-            CheckAutoUnlock();
-        }
-
         /// <summary>
         /// Gets the highest map level the player has unlocked. Default is 1.
         /// </summary>
@@ -39,26 +33,45 @@ namespace ExorcistPath.Core.Managers
         }
 
         /// <summary>
-        /// Unlocks the next map if the provided completed map was the highest unlocked one.
+        /// Gets the price to unlock a specific map.
         /// </summary>
-        /// <param name="completedMapIndex">The map level that was just completed (1 to 4).</param>
-        public void UnlockNextMap(int completedMapIndex)
+        public int GetMapPrice(int mapLevel)
         {
-            int maxMaps = 4; // Based on GDD
-            int currentHighest = GetHighestUnlockedMap();
+            switch (mapLevel)
+            {
+                case 2: return 700000;
+                case 3: return 1600000;
+                case 4: return 3200000;
+                default: return 0; // Map 1 is always unlocked/free
+            }
+        }
 
-            // If we completed the highest map we have access to, and it's not the final map
-            if (completedMapIndex == currentHighest && currentHighest < maxMaps)
+        /// <summary>
+        /// Attempts to purchase a map by deducting coins.
+        /// </summary>
+        public bool TryPurchaseMap(int mapLevel)
+        {
+            int price = GetMapPrice(mapLevel);
+            int currentCoins = GetTotalCoins();
+
+            if (currentCoins >= price)
             {
-                int nextMap = currentHighest + 1;
-                PlayerPrefs.SetInt(HIGHEST_UNLOCKED_MAP_KEY, nextMap);
+                currentCoins -= price;
+                PlayerPrefs.SetInt(TOTAL_COINS_KEY, currentCoins);
+                
+                int currentHighest = GetHighestUnlockedMap();
+                if (mapLevel > currentHighest)
+                {
+                    PlayerPrefs.SetInt(HIGHEST_UNLOCKED_MAP_KEY, mapLevel);
+                }
+                
                 PlayerPrefs.Save();
-                Debug.Log($"[SaveManager] Unlocked Map {nextMap}!");
+                OnCoinsChanged?.Invoke(currentCoins);
+                
+                Debug.Log($"[SaveManager] Purchased Map {mapLevel} for {price} coins. Remaining: {currentCoins}");
+                return true;
             }
-            else
-            {
-                Debug.Log($"[SaveManager] Map {completedMapIndex} completed. No new maps unlocked (Highest is {currentHighest}).");
-            }
+            return false;
         }
 
         /// <summary>
@@ -81,36 +94,6 @@ namespace ExorcistPath.Core.Managers
             Debug.Log($"[SaveManager] Added {amount} coins. New Total: {currentCoins}");
 
             OnCoinsChanged?.Invoke(currentCoins);
-
-            // Automatically check if this new balance unlocks a map
-            CheckAutoUnlock();
-        }
-
-        /// <summary>
-        /// Automatically unlocks maps if the player has reached the coin threshold.
-        /// No coins are deducted.
-        /// </summary>
-        public void CheckAutoUnlock()
-        {
-            int totalCoins = GetTotalCoins();
-            int currentHighest = GetHighestUnlockedMap();
-            int newHighest = currentHighest;
-
-            // Thresholds based on GDD
-            // Map 2: 700,000
-            // Map 3: 1,600,000
-            // Map 4: 3,200,000
-
-            if (totalCoins >= 3200000) newHighest = Mathf.Max(newHighest, 4);
-            else if (totalCoins >= 1600000) newHighest = Mathf.Max(newHighest, 3);
-            else if (totalCoins >= 700000) newHighest = Mathf.Max(newHighest, 2);
-
-            if (newHighest > currentHighest)
-            {
-                PlayerPrefs.SetInt(HIGHEST_UNLOCKED_MAP_KEY, newHighest);
-                PlayerPrefs.Save();
-                Debug.Log($"[SaveManager] AUTO-UNLOCK: New Highest Map is {newHighest} due to coin balance ({totalCoins})");
-            }
         }
 
         /// <summary>

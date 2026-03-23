@@ -6,9 +6,7 @@ public sealed class PickupInteractable : MonoBehaviour, IInteractable
 {
     [SerializeField] private string itemName = "Item";
 
-    [Header("Purification")]
-    [Tooltip("Amount of purification % awarded when this is picked up (for cursed items).")]
-    [SerializeField] private float purificationAward = 0f;
+    // Track if it has been picked up so we don't count it twice if dropped
     private bool hasAwarded = false;
 
     public string Prompt => $"Pick Up {itemName}";
@@ -25,9 +23,9 @@ public sealed class PickupInteractable : MonoBehaviour, IInteractable
         if (!CanInteract(interactor)) return;
         if (!interactor.Inventory.TryPick(gameObject)) return;
 
-        if (!hasAwarded && GameManager.Instance != null && purificationAward > 0f)
+        if (!hasAwarded && GameManager.Instance != null)
         {
-            GameManager.Instance.AddPurification(purificationAward);
+            GameManager.Instance.AddPurifiedTarget(gameObject);
             hasAwarded = true;
         }
 

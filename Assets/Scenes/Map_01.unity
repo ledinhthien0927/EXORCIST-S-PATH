@@ -137,7 +137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 2
-  purificationAward: 4
 --- !u!64 &18989598
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -200,7 +199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 1
-  purificationAward: 4
 --- !u!64 &83573500
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -370,7 +368,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 1
-  purificationAward: 4
 --- !u!1 &203844586
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,7 +814,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 2
-  purificationAward: 4
 --- !u!64 &527165077
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1089,7 +1085,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 1
-  purificationAward: 4
 --- !u!1 &714508365 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3003620230692155377, guid: 2ef7ec89a1d785c4d97aacff3d5c782f, type: 3}
@@ -1108,7 +1103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 2
-  purificationAward: 4
 --- !u!64 &714508370
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1171,7 +1165,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 1
-  purificationAward: 4
 --- !u!1 &844262402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,7 +1517,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 1
-  purificationAward: 4
 --- !u!1 &935406615 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4827638223777913478, guid: 2ef7ec89a1d785c4d97aacff3d5c782f, type: 3}
@@ -2601,7 +2593,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 1
-  purificationAward: 4
 --- !u!64 &1254275886
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2722,7 +2713,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 2
-  purificationAward: 4
 --- !u!64 &1334735474
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2933,7 +2923,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 2
-  purificationAward: 4
 --- !u!1 &1571575952 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6220271975068370666, guid: 2ef7ec89a1d785c4d97aacff3d5c782f, type: 3}
@@ -3012,7 +3001,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 1
-  purificationAward: 4
 --- !u!4 &1596429584 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6944497504838652935, guid: 449c667ee20540e4d99ddd38e860cdb2, type: 3}
@@ -3111,6 +3099,17 @@ MonoBehaviour:
   currentPurificationPercentage: 0
   currentMapLevel: 1
   totalRitualsToWin: 1
+  purificationTargets:
+  - {fileID: 2011635917}
+  - {fileID: 1985583085}
+  - {fileID: 1254275881}
+  - {fileID: 83573494}
+  - {fileID: 2037470453}
+  - {fileID: 527165072}
+  - {fileID: 18989593}
+  - {fileID: 1334735469}
+  - {fileID: 1976722885}
+  - {fileID: 714508365}
 --- !u!1 &1729316429
 GameObject:
   m_ObjectHideFlags: 0
@@ -3332,11 +3331,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 1760112611}
   manager: {fileID: 0}
---- !u!1 &1770856443 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6938889990505246019, guid: 137d03070ce156846bd88c6ba32d0168, type: 3}
-  m_PrefabInstance: {fileID: 5257643958304683459}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1773508435 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7391398211589907338, guid: 2ef7ec89a1d785c4d97aacff3d5c782f, type: 3}
@@ -3622,7 +3616,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 2
-  purificationAward: 4
 --- !u!64 &1976722890
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3663,7 +3656,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 1
-  purificationAward: 4
 --- !u!64 &1985583088
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3726,7 +3718,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 1
-  purificationAward: 4
 --- !u!64 &2011635922
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3767,7 +3758,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTool: 2
-  purificationAward: 4
 --- !u!64 &2037470458
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4523,22 +4513,6 @@ PrefabInstance:
     - target: {fileID: 935071119865619147, guid: 137d03070ce156846bd88c6ba32d0168, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573547046327405203, guid: 137d03070ce156846bd88c6ba32d0168, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573547046327405203, guid: 137d03070ce156846bd88c6ba32d0168, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1573547046327405203, guid: 137d03070ce156846bd88c6ba32d0168, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1770856443}
-    - target: {fileID: 1573547046327405203, guid: 137d03070ce156846bd88c6ba32d0168, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8460055913927784413, guid: 137d03070ce156846bd88c6ba32d0168, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

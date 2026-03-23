@@ -23,10 +23,15 @@ namespace ExorcistPath.Core.Managers
         // Event triggered when the game is won. Useful for cutscenes and win sequences.
         public event Action OnGameWon;
 
-        [Header("Ritual Progress")]
+        [Header("Purification Progress")]
         [Tooltip("Number of rituals required to beat this map.")]
         [SerializeField] private int totalRitualsToWin = 1;
         private int completedRitualsCount = 0;
+
+        [Tooltip("Kéo thả tất cả các vết bẩn / đồ vật bị nguyền của Map này vào đây.")]
+        [SerializeField] private GameObject[] purificationTargets;
+        private int totalPurificationTargets = 0;
+        private int cleanedTargetsCount = 0;
 
         private void Awake()
         {
@@ -53,49 +58,60 @@ namespace ExorcistPath.Core.Managers
         /// </summary>
         private void SyncFromOther(GameManager other)
         {
-            InitializeLevel(other.currentMapLevel, other.totalRitualsToWin);
+            InitializeLevel(other.currentMapLevel, other.totalRitualsToWin, other.purificationTargets);
         }
 
         /// <summary>
         /// Resets the game state and sets up goals for a new map.
         /// Call this when a level starts.
         /// </summary>
-        public void InitializeLevel(int mapLevel, int ritualsRequired)
+        public void InitializeLevel(int mapLevel, int ritualsRequired, GameObject[] targets)
         {
             currentMapLevel = mapLevel;
             totalRitualsToWin = ritualsRequired;
             
+            // Setup Array Targets
+            purificationTargets = targets;
+            totalPurificationTargets = targets != null ? targets.Length : 0;
+            cleanedTargetsCount = 0;
+
             // Reset Progress
             currentPurificationPercentage = 0f;
             completedRitualsCount = 0;
 
-            Debug.Log($"[GameManager] Level Initialized: Map {mapLevel}, Rituals Required: {ritualsRequired}");
+            Debug.Log($"[GameManager] Level Initialized: Map {mapLevel}, Rituals: {ritualsRequired}, Targets: {totalPurificationTargets}");
             
             // Notify UI to reset
             OnPurificationChanged?.Invoke(currentPurificationPercentage);
         }
 
         /// <summary>
-        /// Adds a specific amount to the total purification percentage.
-        /// Clamps the result between 0 and 100.
+        /// Adds a purified target (like blood or cursed item) to the count.
+        /// It will calculate the total percentage based on the array size.
         /// </summary>
-        /// <param name="amount">The percentage amount to add.</param>
-        public void AddPurification(float amount)
+        public void AddPurifiedTarget(GameObject targetObj)
         {
-            if (currentPurificationPercentage >= 100f) return;
+            if (purificationTargets == null || totalPurificationTargets == 0) return;
 
-            // Add and clamp the value
-            currentPurificationPercentage += amount;
-            currentPurificationPercentage = Mathf.Clamp(currentPurificationPercentage, 0f, 100f);
-
-            // Notify subscribers (like UI) that the value changed
-            OnPurificationChanged?.Invoke(currentPurificationPercentage);
-
-            Debug.Log($"[GameManager] Purification Updated: {currentPurificationPercentage}%");
-
-            if (currentPurificationPercentage >= 100f)
+            bool found = false;
+            for (int i = 0; i < purificationTargets.Length; i++)
             {
-                Debug.Log("Game Win");
+                if (purificationTargets[i] == targetObj)
+                {
+                    purificationTargets[i] = null; // Remove it so it can't be counted twice
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found)
+            {
+                cleanedTargetsCount++;
+                currentPurificationPercentage = ((float)cleanedTargetsCount / totalPurificationTargets) * 100f;
+                currentPurificationPercentage = Mathf.Clamp(currentPurificationPercentage, 0f, 100f);
+                
+                OnPurificationChanged?.Invoke(currentPurificationPercentage);
+                Debug.Log($"[GameManager] Target Cleaned! {cleanedTargetsCount}/{totalPurificationTargets} -> {currentPurificationPercentage}%");
             }
         }
 
@@ -117,9 +133,6 @@ namespace ExorcistPath.Core.Managers
 
             if (completedRitualsCount >= totalRitualsToWin)
             {
-                // Force 100% purification as per GDD since all rituals are done
-                AddPurification(100f);
-                
                 // End the game
                 WinGame();
                 return true;
@@ -140,9 +153,9 @@ namespace ExorcistPath.Core.Managers
                 // Calculate and add coin reward
                 int reward = CalculateCoinReward(currentMapLevel, currentPurificationPercentage);
                 SaveManager.Instance.AddCoins(reward);
-
-                // Save progress: Unlock the next map based on the current one
-                SaveManager.Instance.UnlockNextMap(currentMapLevel);
+                
+                // Map unlocking is now handled by MapSelectionManager using purchased coins
+                Debug.Log($"[GameManager] Win processed. Coins awarded: {reward}");
             }
             else
             {

@@ -5,10 +5,6 @@ using ExorcistPath.Core.Managers;
 public sealed class CleanableBloodInteractable : MonoBehaviour, IInteractable
 {
     [SerializeField] private CleaningToolType requiredTool = CleaningToolType.Cloth;
-    
-    [Header("Purification")]
-    [Tooltip("Amount of purification % awarded when this is cleaned.")]
-    [SerializeField] private float purificationAward = 4f;
 
     public string Prompt
     {
@@ -38,9 +34,9 @@ public sealed class CleanableBloodInteractable : MonoBehaviour, IInteractable
 
         if (!heldTool.UseOnce()) return;
 
-        if (GameManager.Instance != null && purificationAward > 0f)
+        if (GameManager.Instance != null)
         {
-            GameManager.Instance.AddPurification(purificationAward);
+            GameManager.Instance.AddPurifiedTarget(gameObject);
         }
 
         Destroy(gameObject);

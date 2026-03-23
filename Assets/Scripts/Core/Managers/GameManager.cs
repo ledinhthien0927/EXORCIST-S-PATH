@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ExorcistPath.Core.Managers
@@ -51,6 +52,46 @@ namespace ExorcistPath.Core.Managers
             DontDestroyOnLoad(gameObject);
         }
 
+        private void Start()
+        {
+            // If no targets were manually assigned, try to find all cleanables/pickups in the scene automatically
+            if (totalPurificationTargets == 0)
+            {
+                AutoCollectTargets();
+            }
+        }
+
+        /// <summary>
+        /// Automatically finds all objects in the scene that should count towards purification.
+        /// </summary>
+        private void AutoCollectTargets()
+        {
+            var bloods = FindObjectsByType<CleanableBloodInteractable>(FindObjectsSortMode.None);
+            var pickups = FindObjectsByType<PickupInteractable>(FindObjectsSortMode.None);
+
+            // Filter pickups that are NOT purification targets (e.g. tools like bucket/mop)
+            List<GameObject> filteredTargets = new List<GameObject>();
+            
+            foreach (var b in bloods) filteredTargets.Add(b.gameObject);
+            
+            foreach (var p in pickups)
+            {
+                if (p.isPurificationTarget)
+                {
+                    filteredTargets.Add(p.gameObject);
+                }
+            }
+
+            if (filteredTargets.Count == 0) return;
+
+            purificationTargets = filteredTargets.ToArray();
+            totalPurificationTargets = purificationTargets.Length;
+            cleanedTargetsCount = 0;
+            currentPurificationPercentage = 0f;
+
+            Debug.Log($"[GameManager] Auto-Collected {totalPurificationTargets} purification targets in Scene.");
+        }
+
         /// <summary>
         /// Copies important level-specific settings from another GameManager.
         /// This allows you to have a GameManager object in each scene with local settings
@@ -59,6 +100,12 @@ namespace ExorcistPath.Core.Managers
         private void SyncFromOther(GameManager other)
         {
             InitializeLevel(other.currentMapLevel, other.totalRitualsToWin, other.purificationTargets);
+            
+            // If the scene-local GameManager has no targets, trigger auto-collect on the instance
+            if (totalPurificationTargets == 0)
+            {
+                AutoCollectTargets();
+            }
         }
 
         /// <summary>
@@ -91,7 +138,11 @@ namespace ExorcistPath.Core.Managers
         /// </summary>
         public void AddPurifiedTarget(GameObject targetObj)
         {
-            if (purificationTargets == null || totalPurificationTargets == 0) return;
+            if (purificationTargets == null || totalPurificationTargets == 0)
+            {
+                Debug.LogWarning($"[GameManager] AddPurifiedTarget called for {targetObj.name}, but purificationTargets array is EMPTY or NULL!");
+                return;
+            }
 
             bool found = false;
             for (int i = 0; i < purificationTargets.Length; i++)
@@ -111,7 +162,11 @@ namespace ExorcistPath.Core.Managers
                 currentPurificationPercentage = Mathf.Clamp(currentPurificationPercentage, 0f, 100f);
                 
                 OnPurificationChanged?.Invoke(currentPurificationPercentage);
-                Debug.Log($"[GameManager] Target Cleaned! {cleanedTargetsCount}/{totalPurificationTargets} -> {currentPurificationPercentage}%");
+                Debug.Log($"[GameManager] Target Cleaned: {targetObj.name}. Progress: {cleanedTargetsCount}/{totalPurificationTargets} ({currentPurificationPercentage}%)");
+            }
+            else
+            {
+                Debug.LogWarning($"[GameManager] Target {targetObj.name} was NOT found in the purificationTargets array! (Có thể bạn đã kéo Prefab thay vì Scene Instance?)");
             }
         }
 

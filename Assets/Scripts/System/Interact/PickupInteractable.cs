@@ -5,6 +5,7 @@ using ExorcistPath.Core.Managers;
 public sealed class PickupInteractable : MonoBehaviour, IInteractable
 {
     [SerializeField] private string itemName = "Item";
+    [SerializeField] public bool isPurificationTarget = false;
 
     // Track if it has been picked up so we don't count it twice if dropped
     private bool hasAwarded = false;
@@ -23,7 +24,7 @@ public sealed class PickupInteractable : MonoBehaviour, IInteractable
         if (!CanInteract(interactor)) return;
         if (!interactor.Inventory.TryPick(gameObject)) return;
 
-        if (!hasAwarded && GameManager.Instance != null)
+        if (!hasAwarded && isPurificationTarget && GameManager.Instance != null)
         {
             GameManager.Instance.AddPurifiedTarget(gameObject);
             hasAwarded = true;

@@ -78,17 +78,21 @@ public class WaterBucket : MonoBehaviour
 
         RefreshWaterVisual();
     }
-
     public bool BlessWater()
     {
         if (!hasWater || currentDipUses <= 0)
             return false;
 
         isHolyWater = true;
+         
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayPourWater();
+        }
+
         RefreshWaterVisual();
         return true;
     }
-
     public void SpillAllWater()
     {
         hasWater = false;

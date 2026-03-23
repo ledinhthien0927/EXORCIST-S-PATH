@@ -22,22 +22,29 @@ namespace ExorcistPath.System
                 }
             }
 
-            // Trigger all rituals to complete on F10 key press (Plays Sequence)
+            // Trigger the NEXT ritual to complete on F10 key press (Plays Sequence)
             if (Input.GetKeyDown(KeyCode.F10))
             {
-                Debug.Log("[GameTestSystem] F10 Pressed - Forcing All Rituals to Complete!");
                 var rituals = FindObjectsByType<RitualManagerSimple>(FindObjectsSortMode.None);
-                
-                if (rituals.Length > 0)
+                RitualManagerSimple nextRitual = null;
+
+                foreach (var r in rituals)
                 {
-                    foreach (var ritual in rituals)
+                    if (!r.IsDone)
                     {
-                        ritual.ForceComplete();
+                        nextRitual = r;
+                        break;
                     }
+                }
+                
+                if (nextRitual != null)
+                {
+                    Debug.Log($"[GameTestSystem] F10 Pressed - Forcing Ritual {nextRitual.name} to Complete!");
+                    nextRitual.ForceComplete();
                 }
                 else
                 {
-                    Debug.LogWarning("[GameTestSystem] No RitualManagerSimple found in scene!");
+                    Debug.LogWarning("[GameTestSystem] All rituals are already completed or none found!");
                 }
             }
         }

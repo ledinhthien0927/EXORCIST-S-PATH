@@ -12,6 +12,7 @@ public class RitualManagerSimple : MonoBehaviour
     [SerializeField] private CustomerWinSequence winSequence;
 
     private bool isDone = false;
+    public bool IsDone => isDone;
 
     public void CheckComplete()
     {

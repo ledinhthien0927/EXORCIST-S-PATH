@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Candle
+  purificationAward: 0
 --- !u!114 &416115247378762159
 MonoBehaviour:
   m_ObjectHideFlags: 0

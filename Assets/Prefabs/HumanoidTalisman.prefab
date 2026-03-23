@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Humanoid
+  purificationAward: 0
 --- !u!114 &5501366593762876375
 MonoBehaviour:
   m_ObjectHideFlags: 0

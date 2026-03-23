@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 403502613021732828}
   - component: {fileID: 6024241440970270008}
   - component: {fileID: 8310178621087881748}
+  - component: {fileID: 4334283331864633813}
   m_Layer: 5
   m_Name: BtnUp
   m_TagString: Untagged
@@ -222,6 +223,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4334283331864633813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986287385400243651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4cdd9b72d54e24bae928ef6ef4b2df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetImage: {fileID: 403502613021732828}
+  normalSprite: {fileID: 21300000, guid: e27b049290901a248aea0f0685c6dd3b, type: 3}
+  pressedSprite: {fileID: 21300000, guid: b2315742b60dd4b43a1502535d8faf4a, type: 3}
 --- !u!1 &1273153467143792066
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +783,7 @@ GameObject:
   - component: {fileID: 587274633705876718}
   - component: {fileID: 2340767837519249341}
   - component: {fileID: 8915495258836395446}
+  - component: {fileID: 8810652676071461369}
   m_Layer: 5
   m_Name: BtnLeft
   m_TagString: Untagged
@@ -889,6 +906,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8810652676071461369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3202029081091967553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4cdd9b72d54e24bae928ef6ef4b2df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetImage: {fileID: 587274633705876718}
+  normalSprite: {fileID: 21300000, guid: c8e4832bab3c7ca4ca285c80b158e6dc, type: 3}
+  pressedSprite: {fileID: 21300000, guid: 18b509051cd314e47a1fae747d614d80, type: 3}
 --- !u!1 &3493777098115976341
 GameObject:
   m_ObjectHideFlags: 0
@@ -10884,6 +10916,7 @@ GameObject:
   - component: {fileID: 5399984865525103760}
   - component: {fileID: 8552342539581812504}
   - component: {fileID: 8308636917354248388}
+  - component: {fileID: 453532766576935761}
   m_Layer: 5
   m_Name: BtnDown
   m_TagString: Untagged
@@ -11006,6 +11039,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &453532766576935761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4132823968752209462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4cdd9b72d54e24bae928ef6ef4b2df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetImage: {fileID: 5399984865525103760}
+  normalSprite: {fileID: 21300000, guid: ffd78b5210e3b7a47b8a52d9c4878e2e, type: 3}
+  pressedSprite: {fileID: 21300000, guid: 7ce15347170d4f84f9a43d0bf5e52f4a, type: 3}
 --- !u!1 &4424601022857948272
 GameObject:
   m_ObjectHideFlags: 0
@@ -11876,6 +11924,7 @@ GameObject:
   - component: {fileID: 6855043517274003466}
   - component: {fileID: 8457765920197142749}
   - component: {fileID: 6747051220969595552}
+  - component: {fileID: 5201526329129648636}
   m_Layer: 5
   m_Name: BtnRight
   m_TagString: Untagged
@@ -11998,6 +12047,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5201526329129648636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6574154520158050809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4cdd9b72d54e24bae928ef6ef4b2df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetImage: {fileID: 6855043517274003466}
+  normalSprite: {fileID: 21300000, guid: a068de6da3c97c84bab669463326a9a4, type: 3}
+  pressedSprite: {fileID: 21300000, guid: 20cf071f880077e4cb79fe78b6c14a2b, type: 3}
 --- !u!1 &6595334237799597956
 GameObject:
   m_ObjectHideFlags: 0
@@ -17516,7 +17580,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b2cc84fe69946384a8dfc9d927fcd44a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 17f8e6d9546492b458b2dc953b5b8e33, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

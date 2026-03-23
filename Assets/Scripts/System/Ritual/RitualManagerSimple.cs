@@ -1,10 +1,15 @@
 using UnityEngine;
 using ExorcistPath.Core.Managers;
+using ExorcistPath.Gameplay;
 
 public class RitualManagerSimple : MonoBehaviour
 {
     [SerializeField] private RitualSlotSimple[] slots;
     [SerializeField] private GameObject glowEffect;
+    
+    [Header("End Sequence")]
+    [Tooltip("The sequence to play when this specific ritual is completed.")]
+    [SerializeField] private CustomerWinSequence winSequence;
 
     private bool isDone = false;
 
@@ -25,14 +30,43 @@ public class RitualManagerSimple : MonoBehaviour
 
         Debug.Log("Ritual Completed ??");
 
-        if (GameManager.Instance != null)
+        // Play the customer fly sequence. This sequence will tell GameManager
+        // that a ritual is done, and GameManager will decide if it's the last one.
+        if (winSequence != null)
         {
-            // The GDD requirement states that completing the ritual gives the rest of the purification.
-            // Add 100f to ensure it reaches 100% (GameManager clamps it to 100).
-            GameManager.Instance.AddPurification(100f);
-            
-            // Winning the game
-            GameManager.Instance.WinGame();
+            winSequence.PlaySequence();
+        }
+        else
+        {
+            Debug.LogWarning("[RitualManagerSimple] No CustomerWinSequence assigned!");
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.CompleteRitual();
+            }
+        }
+    }
+
+    public void ForceComplete()
+    {
+        if (isDone) return;
+        isDone = true;
+
+        if (glowEffect != null)
+            glowEffect.SetActive(true);
+
+        Debug.Log("[RitualManagerSimple] Ritual Force Completed via Debug!");
+
+        if (winSequence != null)
+        {
+            winSequence.PlaySequence();
+        }
+        else
+        {
+            Debug.LogWarning("[RitualManagerSimple] No CustomerWinSequence assigned!");
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.CompleteRitual();
+            }
         }
     }
 }

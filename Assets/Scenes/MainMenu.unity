@@ -764,6 +764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPurificationPercentage: 0
   currentMapLevel: 1
+  totalRitualsToWin: 1
 --- !u!4 &874909533
 Transform:
   m_ObjectHideFlags: 0

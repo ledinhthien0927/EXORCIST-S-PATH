@@ -23,11 +23,20 @@ namespace ExorcistPath.Core.Managers
         // Event triggered when the game is won. Useful for cutscenes and win sequences.
         public event Action OnGameWon;
 
+        [Header("Ritual Progress")]
+        [Tooltip("Number of rituals required to beat this map.")]
+        [SerializeField] private int totalRitualsToWin = 1;
+        private int completedRitualsCount = 0;
+
         private void Awake()
         {
             // Standard Singleton setup
             if (Instance != null && Instance != this)
             {
+                // If a new GameManager exists in the scene, check if we should copy its settings
+                // before destroying it (useful for setting Level-specific values in Inspector)
+                Instance.SyncFromOther(this);
+
                 Destroy(gameObject);
                 return;
             }
@@ -35,6 +44,35 @@ namespace ExorcistPath.Core.Managers
             Instance = this;
             // Keep GameManager alive across scene loads
             DontDestroyOnLoad(gameObject);
+        }
+
+        /// <summary>
+        /// Copies important level-specific settings from another GameManager.
+        /// This allows you to have a GameManager object in each scene with local settings
+        /// that get passed to the main persistent Instance.
+        /// </summary>
+        private void SyncFromOther(GameManager other)
+        {
+            InitializeLevel(other.currentMapLevel, other.totalRitualsToWin);
+        }
+
+        /// <summary>
+        /// Resets the game state and sets up goals for a new map.
+        /// Call this when a level starts.
+        /// </summary>
+        public void InitializeLevel(int mapLevel, int ritualsRequired)
+        {
+            currentMapLevel = mapLevel;
+            totalRitualsToWin = ritualsRequired;
+            
+            // Reset Progress
+            currentPurificationPercentage = 0f;
+            completedRitualsCount = 0;
+
+            Debug.Log($"[GameManager] Level Initialized: Map {mapLevel}, Rituals Required: {ritualsRequired}");
+            
+            // Notify UI to reset
+            OnPurificationChanged?.Invoke(currentPurificationPercentage);
         }
 
         /// <summary>
@@ -70,8 +108,28 @@ namespace ExorcistPath.Core.Managers
         }
 
         /// <summary>
+        /// Registers a completed ritual. Returns true if all rituals for the level are completed.
+        /// </summary>
+        public bool CompleteRitual()
+        {
+            completedRitualsCount++;
+            Debug.Log($"[GameManager] Ritual completed: {completedRitualsCount}/{totalRitualsToWin}");
+
+            if (completedRitualsCount >= totalRitualsToWin)
+            {
+                // Force 100% purification as per GDD since all rituals are done
+                AddPurification(100f);
+                
+                // End the game
+                WinGame();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// API for Dev B to call when the player successfully completes the level
-        /// (e.g., finishes the purification ritual).
+        /// (e.g., finishes all purification rituals).
         /// </summary>
         public void WinGame()
         {

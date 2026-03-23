@@ -32,6 +32,13 @@ namespace ExorcistPath.UI_UX.Menu
         private void Start()
         {
             UpdateMapButtons();
+
+            // Fade in from black at the start of the scene
+            if (fadeOverlay != null)
+            {
+                SetFadeAlpha(1f);
+                StartCoroutine(FadeToBlack(0f, fadeOutDuration));
+            }
         }
 
         /// <summary>
@@ -124,13 +131,20 @@ namespace ExorcistPath.UI_UX.Menu
             }
         }
 
+        public void BackToMainMenu()
+        {
+            if (isBusy) return;
+            StartCoroutine(LoadSceneRoutine("MainMenu"));
+        }
+
         private void OnMapButtonClicked(int mapLevel)
         {
             if (isBusy) return;
-            StartCoroutine(LoadMapRoutine(mapLevel));
+            string sceneName = $"Map_{mapLevel:D2}";
+            StartCoroutine(LoadSceneRoutine(sceneName));
         }
 
-        private IEnumerator LoadMapRoutine(int mapLevel)
+        private IEnumerator LoadSceneRoutine(string sceneName)
         {
             isBusy = true;
             
@@ -144,7 +158,6 @@ namespace ExorcistPath.UI_UX.Menu
             }
 
             // Load the map scene
-            string sceneName = $"Map_{mapLevel:D2}";
             Debug.Log($"[MapSelectionManager] Loading scene: {sceneName}");
             SceneManager.LoadScene(sceneName);
         }

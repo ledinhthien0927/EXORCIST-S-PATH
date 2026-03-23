@@ -3865,7 +3865,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPurificationPercentage: 0
   currentMapLevel: 2
-  totalRitualsToWin: 38
+  totalRitualsToWin: 1
   purificationTargets:
   - {fileID: 710010730}
   - {fileID: 1980194556}

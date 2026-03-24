@@ -1,0 +1,12 @@
+# ninja log v5
+156	710	7960453067337925	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	86faeb8b94169ce4
+714	1110	7960453071190233	D:/User/GitClone/EXORCIST-S-PATH/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2m5j6y5i/obj/arm64-v8a/libswappywrapper.so	b79d4c46178eb7f9
+58	2693	7960453087067496	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	a986bf9b218ebf10
+37	2748	7960453087777341	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	9f6f45592eb45bda
+138	2823	7960453088314546	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	da40a3414c08ad9c
+79	2885	7960453088980732	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	9830aac420ae9a22
+120	3020	7960453090350488	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	5b04ffd75214f882
+2	3222	7960453092352668	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	66d849158552c3eb
+97	3662	7960453096843765	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	1d4bd8887baed16b
+22	3939	7960453099488905	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	cd85587cabaec8ee
+3940	4220	7960453102244837	D:/User/GitClone/EXORCIST-S-PATH/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/2m5j6y5i/obj/arm64-v8a/libgame.so	f3c3be6662d354f6

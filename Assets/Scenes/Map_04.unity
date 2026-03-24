@@ -1985,7 +1985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4d466ea77a1eb428aed7af41db472e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 30
+  cooldownTime: 15
   playerInteractor: {fileID: 2044777569}
   holyWaterPrefab: {fileID: 807731527300931986, guid: ce3d256a606073f4282593fbf67343c1, type: 3}
 --- !u!4 &495469452

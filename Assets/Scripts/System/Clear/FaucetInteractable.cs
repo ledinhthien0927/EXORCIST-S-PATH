@@ -32,6 +32,10 @@ public class FaucetInteractable : MonoBehaviour, IInteractable
         }
 
         heldBucket.FillWithNormalWater();
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayScoopWater();
+        }
         Debug.Log("Bucket filled with normal water.");
     }
 }

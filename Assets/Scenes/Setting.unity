@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 17805563}
   - component: {fileID: 17805562}
   - component: {fileID: 17805565}
+  - component: {fileID: 17805566}
   m_Layer: 5
   m_Name: Back_Btn
   m_TagString: Untagged
@@ -268,6 +269,18 @@ MonoBehaviour:
   fadeOverlay: {fileID: 861417161}
   fadeOutDuration: 0.6
   disableButtonWhileLoading: 1
+--- !u!114 &17805566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17805560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee411ea5b4c06cb4fb728a11f6e64f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &115703030
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,6 +1433,52 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1594284769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1594284771}
+  - component: {fileID: 1594284770}
+  m_Layer: 0
+  m_Name: AudioSettingsUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1594284770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594284769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7011ce63fcfacf149be738fd76564b75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSlider: {fileID: 778346644}
+  sfxSlider: {fileID: 1502741420}
+--- !u!4 &1594284771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594284769}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.423719, y: 0.9045843, z: 4.7812467}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1926863238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,3 +1749,4 @@ SceneRoots:
   - {fileID: 365707423}
   - {fileID: 115703033}
   - {fileID: 231796005}
+  - {fileID: 1594284771}

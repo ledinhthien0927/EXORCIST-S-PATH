@@ -29,8 +29,12 @@ public class RitualManagerSimple : MonoBehaviour
         if (glowEffect != null)
             glowEffect.SetActive(true);
 
-        Debug.Log("Ritual Completed ??");
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayMagic();
+        }
 
+        Debug.Log("Ritual Completed ??");
         // Play the customer fly sequence. This sequence will tell GameManager
         // that a ritual is done, and GameManager will decide if it's the last one.
         if (winSequence != null)
@@ -54,6 +58,12 @@ public class RitualManagerSimple : MonoBehaviour
 
         if (glowEffect != null)
             glowEffect.SetActive(true);
+
+      
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayMagic();
+        }
 
         Debug.Log("[RitualManagerSimple] Ritual Force Completed via Debug!");
 

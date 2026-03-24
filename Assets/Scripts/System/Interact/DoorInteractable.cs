@@ -67,7 +67,26 @@ public sealed class DoorInteractable : MonoBehaviour, IInteractable
 
         SetBlockerState(isOpen);
 
-     
+        
+        if (AudioManager.Instance != null)
+        {
+            if (isOpen)
+            {
+            
+                if (openSound != null)
+                    AudioManager.Instance.PlaySFX(openSound);
+                else
+                    AudioManager.Instance.PlayDoorClose();  
+            }
+            else
+            {
+          
+                if (closeSound != null)
+                    AudioManager.Instance.PlaySFX(closeSound);
+                else
+                    AudioManager.Instance.PlayDoorClose();
+            }
+        }
 
         OnDoorStateChanged?.Invoke(isOpen);
     }

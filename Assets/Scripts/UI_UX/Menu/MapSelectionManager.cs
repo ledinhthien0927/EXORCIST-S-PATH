@@ -131,6 +131,27 @@ namespace ExorcistPath.UI_UX.Menu
             }
         }
 
+        /// <summary>
+        /// Cheat function to add 999,999 coins.
+        /// Suggested to be called from a Button's OnClick event in the MapSelection scene.
+        /// </summary>
+        public void AddHackMoney()
+        {
+            if (SaveManager.Instance != null)
+            {
+                SaveManager.Instance.AddCoins(999999);
+                
+                // Refresh the UI to reflect the new coin count and update button interactability
+                UpdateMapButtons();
+                
+                Debug.Log("[MapSelectionManager] HackMoney added: 999,999 coins.");
+            }
+            else
+            {
+                Debug.LogError("[MapSelectionManager] SaveManager Instance not found. Cannot add hack money.");
+            }
+        }
+
         public void BackToMainMenu()
         {
             if (isBusy) return;

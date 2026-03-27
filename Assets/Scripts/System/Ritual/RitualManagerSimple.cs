@@ -6,13 +6,34 @@ public class RitualManagerSimple : MonoBehaviour
 {
     [SerializeField] private RitualSlotSimple[] slots;
     [SerializeField] private GameObject glowEffect;
-    
+
     [Header("End Sequence")]
-    [Tooltip("The sequence to play when this specific ritual is completed.")]
     [SerializeField] private CustomerWinSequence winSequence;
+
+    public enum CryType
+    {
+        None,
+        Male,
+        Female
+    }
+
+    [Header("Crying Settings")]
+    [SerializeField] private CryType cryType = CryType.None;
+    [SerializeField] private bool playCryingOnStart = true;
 
     private bool isDone = false;
     public bool IsDone => isDone;
+
+    private void Start()
+    {
+        if (!playCryingOnStart) return;
+        if (AudioManager.Instance == null) return;
+
+        if (cryType == CryType.Male)
+            AudioManager.Instance.PlayCryingMale();
+        else if (cryType == CryType.Female)
+            AudioManager.Instance.PlayCryingFemale();
+    }
 
     public void CheckComplete()
     {
@@ -26,6 +47,11 @@ public class RitualManagerSimple : MonoBehaviour
 
         isDone = true;
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopCrying();
+        }
+
         if (glowEffect != null)
             glowEffect.SetActive(true);
 
@@ -35,8 +61,7 @@ public class RitualManagerSimple : MonoBehaviour
         }
 
         Debug.Log("Ritual Completed ??");
-        // Play the customer fly sequence. This sequence will tell GameManager
-        // that a ritual is done, and GameManager will decide if it's the last one.
+
         if (winSequence != null)
         {
             winSequence.PlaySequence();
@@ -56,10 +81,14 @@ public class RitualManagerSimple : MonoBehaviour
         if (isDone) return;
         isDone = true;
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopCrying();
+        }
+
         if (glowEffect != null)
             glowEffect.SetActive(true);
 
-      
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayMagic();

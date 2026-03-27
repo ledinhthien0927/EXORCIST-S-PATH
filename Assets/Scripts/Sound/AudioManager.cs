@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource cryingSource;
 
     [Header("Music")]
     [SerializeField] private AudioClip backgroundMusic;
@@ -17,6 +18,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip pourWaterSFX;
     [SerializeField] private AudioClip scoopWaterSFX;
     [SerializeField] private AudioClip doorCloseSFX;
+
+    [Header("Crying")]
+    [SerializeField] private AudioClip cryingMaleSFX;
+    [SerializeField] private AudioClip cryingFemaleSFX;
+    [SerializeField][Range(0f, 1f)] private float cryingVolume = 0.3f;
 
     private const string MUSIC_VOLUME_KEY = "MusicVolume";
     private const string SFX_VOLUME_KEY = "SFXVolume";
@@ -61,6 +67,13 @@ public class AudioManager : MonoBehaviour
             sfxSource = sfxObj.AddComponent<AudioSource>();
         }
 
+        if (cryingSource == null)
+        {
+            GameObject cryingObj = new GameObject("CryingSource");
+            cryingObj.transform.SetParent(transform);
+            cryingSource = cryingObj.AddComponent<AudioSource>();
+        }
+
         musicSource.loop = true;
         musicSource.playOnAwake = false;
         musicSource.spatialBlend = 0f;
@@ -68,6 +81,10 @@ public class AudioManager : MonoBehaviour
         sfxSource.loop = false;
         sfxSource.playOnAwake = false;
         sfxSource.spatialBlend = 0f;
+
+        cryingSource.loop = true;
+        cryingSource.playOnAwake = false;
+        cryingSource.spatialBlend = 0f;
     }
 
     private void LoadVolume()
@@ -83,11 +100,15 @@ public class AudioManager : MonoBehaviour
 
         if (sfxSource != null)
             sfxSource.volume = SFXVolume;
+
+        if (cryingSource != null)
+            cryingSource.volume = SFXVolume * cryingVolume;
     }
 
     public void SetMusicVolume(float value)
     {
         MusicVolume = Mathf.Clamp01(value);
+
         if (musicSource != null)
             musicSource.volume = MusicVolume;
 
@@ -98,11 +119,18 @@ public class AudioManager : MonoBehaviour
     public void SetSFXVolume(float value)
     {
         SFXVolume = Mathf.Clamp01(value);
+
         if (sfxSource != null)
             sfxSource.volume = SFXVolume;
 
+        if (cryingSource != null)
+            cryingSource.volume = SFXVolume;
+
         PlayerPrefs.SetFloat(SFX_VOLUME_KEY, SFXVolume);
         PlayerPrefs.Save();
+
+        if (cryingSource != null)
+            cryingSource.volume = SFXVolume * cryingVolume;
     }
 
     public void PlayBackgroundMusic()
@@ -154,5 +182,29 @@ public class AudioManager : MonoBehaviour
     public void PlayDoorClose()
     {
         PlaySFX(doorCloseSFX);
+    }
+
+    public void PlayCryingMale()
+    {
+        if (cryingSource == null || cryingMaleSFX == null) return;
+
+        cryingSource.clip = cryingMaleSFX;
+        cryingSource.volume = SFXVolume * cryingVolume;
+        cryingSource.Play();
+    }
+
+    public void PlayCryingFemale()
+    {
+        if (cryingSource == null || cryingFemaleSFX == null) return;
+
+        cryingSource.clip = cryingFemaleSFX;
+        cryingSource.volume = SFXVolume * cryingVolume;
+        cryingSource.Play();
+    }
+
+    public void StopCrying()
+    {
+        if (cryingSource != null && cryingSource.isPlaying)
+            cryingSource.Stop();
     }
 }

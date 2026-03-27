@@ -846,12 +846,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 844418043}
   sfxSource: {fileID: 701482135}
+  cryingSource: {fileID: 0}
   backgroundMusic: {fileID: 8300000, guid: 3591806e60a183640a5839147d79ef89, type: 3}
   clickSFX: {fileID: 8300000, guid: d0c500c5763f5ad44a0be360989f4f34, type: 3}
   magicSFX: {fileID: 8300000, guid: 4f312b81e73b42145ac520723e7b26db, type: 3}
   pourWaterSFX: {fileID: 8300000, guid: f2b55e2860bbebd41b34be6437b1bdd4, type: 3}
   scoopWaterSFX: {fileID: 8300000, guid: cee930db933e31d42b4cb773a05a3c00, type: 3}
   doorCloseSFX: {fileID: 8300000, guid: 928cf97ac0ba8394fabf11c7164d02ff, type: 3}
+  cryingMaleSFX: {fileID: 8300000, guid: 4104d082d130501498bafe19d6f6d2a1, type: 3}
+  cryingFemaleSFX: {fileID: 8300000, guid: 3bdb766bc5e75774fbddd8ab2a408ff7, type: 3}
+  cryingVolume: 0.1
 --- !u!4 &996530799
 Transform:
   m_ObjectHideFlags: 0

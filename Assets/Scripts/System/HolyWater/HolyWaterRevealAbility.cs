@@ -26,7 +26,6 @@ public class HolyWaterRevealAbility : MonoBehaviour
             revealButton.onClick.RemoveListener(OnRevealButtonClicked);
             revealButton.onClick.AddListener(OnRevealButtonClicked);
 
-         
             revealButtonObject.SetActive(isHeld);
         }
 
@@ -77,5 +76,9 @@ public class HolyWaterRevealAbility : MonoBehaviour
         }
     }
 
-
+    private void OnDestroy()
+    {
+        if (revealButtonObject != null)
+            revealButtonObject.SetActive(false);
+    }
 }

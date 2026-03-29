@@ -35,6 +35,25 @@ public class RitualManagerSimple : MonoBehaviour
             AudioManager.Instance.PlayCryingFemale();
     }
 
+    private void OnDisable()
+    {
+        StopCryIfNeeded();
+    }
+
+    private void OnDestroy()
+    {
+        StopCryIfNeeded();
+    }
+
+    private void StopCryIfNeeded()
+    {
+        if (!playCryingOnStart) return;
+        if (AudioManager.Instance == null) return;
+        if (isDone) return;
+
+        AudioManager.Instance.StopCrying();
+    }
+
     public void CheckComplete()
     {
         if (isDone) return;

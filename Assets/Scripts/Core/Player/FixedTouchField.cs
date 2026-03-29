@@ -29,7 +29,16 @@ public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             return;
 
         Vector2 pointerNew = eventData.position;
-        TouchDist = pointerNew - pointerOld;
+        Vector2 delta = pointerNew - pointerOld;
+
+      
+        if (delta.sqrMagnitude < 1f)
+        {
+            TouchDist = Vector2.zero;
+            return;
+        }
+
+        TouchDist = delta;
         pointerOld = pointerNew;
     }
 

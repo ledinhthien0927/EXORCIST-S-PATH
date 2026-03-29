@@ -118,8 +118,24 @@ namespace ExorcistPath.Core.Managers
             totalRitualsToWin = ritualsRequired;
             
             // Setup Array Targets
-            purificationTargets = targets;
-            totalPurificationTargets = targets != null ? targets.Length : 0;
+            if (targets != null)
+            {
+                List<GameObject> uniqueTargets = new List<GameObject>();
+                foreach (var t in targets)
+                {
+                    if (t != null && !uniqueTargets.Contains(t))
+                    {
+                        uniqueTargets.Add(t);
+                    }
+                }
+                purificationTargets = uniqueTargets.ToArray();
+            }
+            else
+            {
+                purificationTargets = null;
+            }
+
+            totalPurificationTargets = purificationTargets != null ? purificationTargets.Length : 0;
             cleanedTargetsCount = 0;
 
             // Reset Progress

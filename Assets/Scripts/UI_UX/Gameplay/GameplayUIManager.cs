@@ -18,6 +18,14 @@ namespace ExorcistPath.UI_UX.Gameplay
         [SerializeField] private Button buttonContinue;
         [SerializeField] private Button buttonHome;
 
+        [Header("Victory Panel")]
+        [SerializeField] private GameObject panelVictory;
+        [SerializeField] private TextMeshProUGUI textVictoryPurification;
+        [SerializeField] private TextMeshProUGUI textVictoryRank;
+        [SerializeField] private TextMeshProUGUI textVictoryMoney;
+        [SerializeField] private Button buttonVictoryContinue;
+        [SerializeField] private Button buttonVictoryHome;
+
         [Header("Stats UI")]
         [SerializeField] private TextMeshProUGUI textMoney;
         [SerializeField] private TextMeshProUGUI textPurification;
@@ -33,6 +41,7 @@ namespace ExorcistPath.UI_UX.Gameplay
         {
             // Initial UI Setup
             if (panelPause != null) panelPause.SetActive(false);
+            if (panelVictory != null) panelVictory.SetActive(false);
             
             UpdateMoneyText(SaveManager.Instance != null ? SaveManager.Instance.GetTotalCoins() : 0);
             UpdatePurificationText(GameManager.Instance != null ? GameManager.Instance.GetPurificationPercentage() : 0f);
@@ -42,12 +51,17 @@ namespace ExorcistPath.UI_UX.Gameplay
                 SaveManager.Instance.OnCoinsChanged += UpdateMoneyText;
 
             if (GameManager.Instance != null)
+            {
                 GameManager.Instance.OnPurificationChanged += UpdatePurificationText;
+                GameManager.Instance.OnGameWon += ShowVictoryPanel;
+            }
 
             // Setup button listeners
             if (buttonPause != null) buttonPause.onClick.AddListener(() => TogglePause(true));
             if (buttonContinue != null) buttonContinue.onClick.AddListener(() => TogglePause(false));
             if (buttonHome != null) buttonHome.onClick.AddListener(OnHomeClicked);
+            if (buttonVictoryContinue != null) buttonVictoryContinue.onClick.AddListener(OnVictoryContinueClicked);
+            if (buttonVictoryHome != null) buttonVictoryHome.onClick.AddListener(OnHomeClicked);
             
             // Ensure fade overlay is transparent at start
             if (fadeOverlay != null) SetFadeAlpha(0f);
@@ -60,7 +74,10 @@ namespace ExorcistPath.UI_UX.Gameplay
                 SaveManager.Instance.OnCoinsChanged -= UpdateMoneyText;
 
             if (GameManager.Instance != null)
+            {
                 GameManager.Instance.OnPurificationChanged -= UpdatePurificationText;
+                GameManager.Instance.OnGameWon -= ShowVictoryPanel;
+            }
         }
 
         private void Update()
@@ -151,6 +168,49 @@ namespace ExorcistPath.UI_UX.Gameplay
             color.a = Mathf.Clamp01(alpha);
             fadeOverlay.color = color;
             fadeOverlay.raycastTarget = color.a > 0.01f;
+        }
+
+        private void ShowVictoryPanel()
+        {
+            if (isTransitioning) return;
+
+            if (panelVictory != null)
+            {
+                panelVictory.SetActive(true);
+                
+                if (GameManager.Instance != null)
+                {
+                    float percent = GameManager.Instance.GetPurificationPercentage();
+                    
+                    if (textVictoryPurification != null)
+                        textVictoryPurification.text = $"{Mathf.RoundToInt(percent)}%";
+                        
+                    if (textVictoryRank != null)
+                        textVictoryRank.text = GameManager.Instance.GetRankString(percent);
+                        
+                    if (textVictoryMoney != null)
+                        textVictoryMoney.text = GameManager.Instance.LastCoinReward.ToString("N0");
+                }
+            }
+        }
+
+        private void OnVictoryContinueClicked()
+        {
+            if (isTransitioning) return;
+            StartCoroutine(LoadMapSelectionRoutine());
+        }
+
+        private IEnumerator LoadMapSelectionRoutine()
+        {
+            isTransitioning = true;
+            Time.timeScale = 1f;
+
+            if (fadeOverlay != null)
+            {
+                yield return FadeToBlack(1f, fadeOutDuration);
+            }
+
+            SceneManager.LoadScene("MapSelection");
         }
     }
 }

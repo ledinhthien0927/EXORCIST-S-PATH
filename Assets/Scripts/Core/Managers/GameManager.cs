@@ -118,8 +118,24 @@ namespace ExorcistPath.Core.Managers
             totalRitualsToWin = ritualsRequired;
             
             // Setup Array Targets
-            purificationTargets = targets;
-            totalPurificationTargets = targets != null ? targets.Length : 0;
+            if (targets != null)
+            {
+                List<GameObject> uniqueTargets = new List<GameObject>();
+                foreach (var t in targets)
+                {
+                    if (t != null && !uniqueTargets.Contains(t))
+                    {
+                        uniqueTargets.Add(t);
+                    }
+                }
+                purificationTargets = uniqueTargets.ToArray();
+            }
+            else
+            {
+                purificationTargets = null;
+            }
+
+            totalPurificationTargets = purificationTargets != null ? purificationTargets.Length : 0;
             cleanedTargetsCount = 0;
 
             // Reset Progress
@@ -195,6 +211,16 @@ namespace ExorcistPath.Core.Managers
             return false;
         }
 
+        public int LastCoinReward { get; private set; }
+
+        public string GetRankString(float percentage)
+        {
+            if (percentage >= 100f) return "Hoàn hảo";
+            if (percentage >= 80f) return "Sạch";
+            if (percentage >= 60f) return "Chấp nhận";
+            return "Kém";
+        }
+
         /// <summary>
         /// API for Dev B to call when the player successfully completes the level
         /// (e.g., finishes all purification rituals).
@@ -207,6 +233,7 @@ namespace ExorcistPath.Core.Managers
             {
                 // Calculate and add coin reward
                 int reward = CalculateCoinReward(currentMapLevel, currentPurificationPercentage);
+                LastCoinReward = reward;
                 SaveManager.Instance.AddCoins(reward);
                 
                 // Map unlocking is now handled by MapSelectionManager using purchased coins

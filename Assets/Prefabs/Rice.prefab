@@ -104,7 +104,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.14825147, y: 0.13963835, z: 0.14825147}
+  m_Size: {x: 0.2, y: 0.2, z: 0.2}
   m_Center: {x: 0, y: 0.07011316, z: -0.000000022351742}
 --- !u!54 &4261026646726576952
 Rigidbody:
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Rice
-  purificationAward: 0
+  isPurificationTarget: 0
 --- !u!114 &6747129576448342552
 MonoBehaviour:
   m_ObjectHideFlags: 0

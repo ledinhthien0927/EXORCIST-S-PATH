@@ -110,22 +110,10 @@ namespace ExorcistPath.Gameplay
             {
                 bool isGameWon = GameManager.Instance.CompleteRitual();
                 
-                if (isGameWon)
-                {
-                    // 6. Fade to Black
-                    if (fadeOverlay != null)
-                    {
-                        yield return FadeToBlack(1f, fadeDuration);
-                    }
-
-                    // 7. Transition to Next Scene
-                    SceneManager.LoadScene(nextSceneName);
-                }
-                else
-                {
-                    // Clean up customer if not the final ritual
-                    if (spawnedCustomer != null) Destroy(spawnedCustomer);
-                }
+                // Dọn dẹp khách hàng sau khi bay xong
+                if (spawnedCustomer != null) Destroy(spawnedCustomer);
+                
+                // Việc hiển thị UI và chuyển cảnh đã được giao lại cho GameplayUIManager (sự kiện OnGameWon)
             }
         }
 

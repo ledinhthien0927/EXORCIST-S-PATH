@@ -1546,6 +1546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 1319452677}
   manager: {fileID: 1169550565}
+  acceptedItemType: 1
 --- !u!65 &975630954
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2403,6 +2404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 1241855384}
   manager: {fileID: 0}
+  acceptedItemType: 0
 --- !u!1 &1252805156
 GameObject:
   m_ObjectHideFlags: 0
@@ -2472,6 +2474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 1252805157}
   manager: {fileID: 0}
+  acceptedItemType: 0
 --- !u!1 &1253766544
 GameObject:
   m_ObjectHideFlags: 0
@@ -2520,6 +2523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 1253766545}
   manager: {fileID: 1169550565}
+  acceptedItemType: 2
 --- !u!65 &1253766547
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2828,6 +2832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 1507949517}
   manager: {fileID: 1169550565}
+  acceptedItemType: 3
 --- !u!65 &1507949519
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3298,6 +3303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 1760112611}
   manager: {fileID: 0}
+  acceptedItemType: 0
 --- !u!1 &1773508435 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7391398211589907338, guid: 2ef7ec89a1d785c4d97aacff3d5c782f, type: 3}
@@ -3447,6 +3453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 1086103740}
   manager: {fileID: 1169550565}
+  acceptedItemType: 0
 --- !u!1 &1858672604
 GameObject:
   m_ObjectHideFlags: 0
@@ -3958,6 +3965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 605898745}
   manager: {fileID: 1169550565}
+  acceptedItemType: 0
 --- !u!65 &2120531763
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4176,7 +4184,7 @@ PrefabInstance:
       objectReference: {fileID: 5257643958304683462}
     - target: {fileID: 4006608275750066825, guid: 25fcf72231760a64480f99b5d2e45ba9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.8994093
+      value: -6.663
       objectReference: {fileID: 0}
     - target: {fileID: 4006608275750066825, guid: 25fcf72231760a64480f99b5d2e45ba9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4184,7 +4192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4006608275750066825, guid: 25fcf72231760a64480f99b5d2e45ba9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.5016384
+      value: 6.731
       objectReference: {fileID: 0}
     - target: {fileID: 4006608275750066825, guid: 25fcf72231760a64480f99b5d2e45ba9, type: 3}
       propertyPath: m_LocalRotation.w

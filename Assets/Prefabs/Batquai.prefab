@@ -79,6 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 1613438290388666898}
   manager: {fileID: 0}
+  acceptedItemType: 0
 --- !u!65 &4092466728772399135
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -179,6 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 183836993143890552}
   manager: {fileID: 0}
+  acceptedItemType: 0
 --- !u!65 &5845612729943005367
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -310,6 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 2882745375129792331}
   manager: {fileID: 1055464830749683919}
+  acceptedItemType: 3
 --- !u!65 &5503557372647429685
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -381,6 +384,9 @@ MonoBehaviour:
   - {fileID: 6170287131352523576}
   - {fileID: 172141788470487104}
   glowEffect: {fileID: 8034660626231935916}
+  winSequence: {fileID: 0}
+  cryType: 0
+  playCryingOnStart: 1
 --- !u!1 &4019230772609757687
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,6 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 8813007803628083903}
   manager: {fileID: 1055464830749683919}
+  acceptedItemType: 1
 --- !u!65 &2484505536712253561
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -560,6 +567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 13594379954016661}
   manager: {fileID: 1055464830749683919}
+  acceptedItemType: 0
 --- !u!65 &5662927031202017083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -629,6 +637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 7793462153125979408}
   manager: {fileID: 1055464830749683919}
+  acceptedItemType: 2
 --- !u!65 &80627483311090066
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -729,6 +738,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 6544327281598959839}
   manager: {fileID: 1055464830749683919}
+  acceptedItemType: 0
 --- !u!65 &2611845751971690046
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -829,6 +839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placePoint: {fileID: 3346941907081450010}
   manager: {fileID: 0}
+  acceptedItemType: 0
 --- !u!65 &487363903424233891
 BoxCollider:
   m_ObjectHideFlags: 0

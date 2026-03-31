@@ -54,6 +54,23 @@ public class RitualManagerSimple : MonoBehaviour
         AudioManager.Instance.StopCrying();
     }
 
+    public bool HasPlacedType(RitualItemSimple.RitualItemType itemType)
+    {
+        foreach (var slot in slots)
+        {
+            if (slot == null) continue;
+            if (!slot.HasItem) continue;
+            if (slot.PlacedItemType == itemType) return true;
+        }
+
+        return false;
+    }
+
+    public void NotifyItemPlaced()
+    {
+        CheckComplete();
+    }
+
     public void CheckComplete()
     {
         if (isDone) return;
@@ -79,7 +96,7 @@ public class RitualManagerSimple : MonoBehaviour
             AudioManager.Instance.PlayMagic();
         }
 
-        Debug.Log("Ritual Completed ??");
+        Debug.Log("[RitualManagerSimple] Ritual Completed");
 
         if (winSequence != null)
         {

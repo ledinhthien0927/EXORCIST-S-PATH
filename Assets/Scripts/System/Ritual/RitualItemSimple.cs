@@ -2,8 +2,16 @@ using UnityEngine;
 
 public class RitualItemSimple : MonoBehaviour
 {
-    [Header("Slot Target")]
-    public RitualSlotSimple targetSlot;
+    public enum RitualItemType
+    {
+        Doll,
+        RiceBowl,
+        Candle,
+        Incense
+    }
+
+    [Header("Item Type")]
+    public RitualItemType itemType;
 
     public bool IsPlaced { get; private set; }
 

@@ -1628,6 +1628,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1460243525}
     m_Modifications:
+    - target: {fileID: 172141788470487104, guid: dd56730294b206b4fa2f640633331bb6, type: 3}
+      propertyPath: acceptedItemType
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1055464830749683919, guid: dd56730294b206b4fa2f640633331bb6, type: 3}
       propertyPath: cryType
       value: 2
@@ -1636,6 +1640,14 @@ PrefabInstance:
       propertyPath: winSequence
       value: 
       objectReference: {fileID: 1204113305}
+    - target: {fileID: 1620916051565218622, guid: dd56730294b206b4fa2f640633331bb6, type: 3}
+      propertyPath: acceptedItemType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170287131352523576, guid: dd56730294b206b4fa2f640633331bb6, type: 3}
+      propertyPath: acceptedItemType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8440224775328506764, guid: dd56730294b206b4fa2f640633331bb6, type: 3}
       propertyPath: m_Name
       value: Batquai

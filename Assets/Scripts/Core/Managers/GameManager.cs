@@ -29,7 +29,7 @@ namespace ExorcistPath.Core.Managers
         [SerializeField] private int totalRitualsToWin = 1;
         private int completedRitualsCount = 0;
 
-        [Tooltip("Kéo thả tất cả các vết bẩn / đồ vật bị nguyền của Map này vào đây.")]
+        [Tooltip("Drag and drop all stains / cursed objects of this Map here.")]
         [SerializeField] private GameObject[] purificationTargets;
         private int totalPurificationTargets = 0;
         private int cleanedTargetsCount = 0;
@@ -182,7 +182,7 @@ namespace ExorcistPath.Core.Managers
             }
             else
             {
-                Debug.LogWarning($"[GameManager] Target {targetObj.name} was NOT found in the purificationTargets array! (Có thể bạn đã kéo Prefab thay vì Scene Instance?)");
+                Debug.LogWarning($"[GameManager] Target {targetObj.name} was NOT found in the purificationTargets array! (Did you drag a Prefab instead of a Scene Instance?)");
             }
         }
 
@@ -215,10 +215,10 @@ namespace ExorcistPath.Core.Managers
 
         public string GetRankString(float percentage)
         {
-            if (percentage >= 100f) return "Hoàn hảo";
-            if (percentage >= 80f) return "Sạch";
-            if (percentage >= 60f) return "Chấp nhận";
-            return "Kém";
+            if (percentage >= 100f) return "Perfect";
+            if (percentage >= 80f) return "Clean";
+            if (percentage >= 60f) return "Acceptable";
+            return "Poor";
         }
 
         /// <summary>

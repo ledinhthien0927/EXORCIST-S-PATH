@@ -24,6 +24,8 @@ public sealed class PlayerInteractor : MonoBehaviour
     private IInteractable currentTarget;
     private float lastSeenTime;
     private float lastSeenDistance;
+    private Collider lastHitCollider; // Optimization: Cache for the hit collider
+    private IInteractable lastHitTarget; // Optimization: Cache for the interactable result
 
     public Transform HoldPoint => holdPoint;
     public PlayerInventory Inventory => inventory;
@@ -60,7 +62,19 @@ public sealed class PlayerInteractor : MonoBehaviour
         if (Physics.SphereCast(ray, sphereRadius, out RaycastHit hit, distance, interactMask, QueryTriggerInteraction.Ignore))
         {
             hitDistance = hit.distance;
-            hitTarget = FindBestInteractable(hit.collider);
+            
+            // Optimization: Only search for the interactable if the collider has changed
+            if (hit.collider != lastHitCollider)
+            {
+                lastHitCollider = hit.collider;
+                lastHitTarget = FindBestInteractable(hit.collider);
+            }
+            hitTarget = lastHitTarget;
+        }
+        else
+        {
+            lastHitCollider = null;
+            lastHitTarget = null;
         }
 
         if (hitTarget != null)

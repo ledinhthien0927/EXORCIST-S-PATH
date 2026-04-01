@@ -1014,9 +1014,9 @@ RectTransform:
   - {fileID: 834690329}
   - {fileID: 1186184893}
   - {fileID: 1135422926}
-  - {fileID: 1960501532}
   - {fileID: 1442921408}
   - {fileID: 1029486813}
+  - {fileID: 1960501532}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1829,6 +1829,8 @@ MonoBehaviour:
   - {fileID: 1919647207}
   lockedAlpha: 0.5
   totalCoinText: {fileID: 2062904014}
+  backButton: {fileID: 1442921409}
+  hackButton: {fileID: 1029486814}
   fadeOverlay: {fileID: 1960501530}
   fadeOutDuration: 0.6
 --- !u!4 &1252963087

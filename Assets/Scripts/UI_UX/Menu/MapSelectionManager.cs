@@ -21,6 +21,12 @@ namespace ExorcistPath.UI_UX.Menu
         [Tooltip("The text component displaying the player's total coins.")]
         [SerializeField] private TextMeshProUGUI totalCoinText;
 
+        [Header("Navigation Buttons")]
+        [Tooltip("Reference to the Back button to Main Menu.")]
+        [SerializeField] private Button backButton;
+        [Tooltip("Optional: Reference to the Hack button to be disabled during transitions.")]
+        [SerializeField] private Button hackButton;
+
         [Header("Fade Settings")]
         [Tooltip("Reference to a full screen black Image used as fade overlay.")]
         [SerializeField] private Image fadeOverlay;
@@ -183,8 +189,10 @@ namespace ExorcistPath.UI_UX.Menu
         {
             isBusy = true;
             
-            // Optional: Disable all map buttons during fade
+            // Disable all interactive buttons during fade
             foreach (var btn in mapButtons) if (btn != null) btn.interactable = false;
+            if (backButton != null) backButton.interactable = false;
+            if (hackButton != null) hackButton.interactable = false;
 
             // Fade screen to black
             if (fadeOverlay != null)

@@ -119,6 +119,9 @@ namespace ExorcistPath.UI_UX.Menu
         {
             if (isBusy) return;
 
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayClick();
+
             if (SaveManager.Instance != null && SaveManager.Instance.TryPurchaseMap(mapLevel))
             {
                 Debug.Log($"[MapSelectionManager] Map {mapLevel} purchased successfully!");
@@ -137,6 +140,9 @@ namespace ExorcistPath.UI_UX.Menu
         /// </summary>
         public void AddHackMoney()
         {
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayClick();
+
             if (SaveManager.Instance != null)
             {
                 SaveManager.Instance.AddCoins(999999);
@@ -155,12 +161,20 @@ namespace ExorcistPath.UI_UX.Menu
         public void BackToMainMenu()
         {
             if (isBusy) return;
+
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayClick();
+
             StartCoroutine(LoadSceneRoutine("MainMenu"));
         }
 
         private void OnMapButtonClicked(int mapLevel)
         {
             if (isBusy) return;
+
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayClick();
+
             string sceneName = $"Map_{mapLevel:D2}";
             StartCoroutine(LoadSceneRoutine(sceneName));
         }

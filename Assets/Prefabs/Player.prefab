@@ -68,13 +68,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75422d4707ded89478cfd963d32642c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullBackStartDistance: 0.8
+  pullBackStartDistance: 1
   sphereRadius: 0.05
   wallMask:
     serializedVersion: 2
     m_Bits: 1
-  maxPullBack: 0.5
-  smoothTime: 0.08
+  maxHandPullBack: 1
+  handSmoothTime: 0.8
+  enablePlayerPush: 1
+  playerPushStartDistance: 1
+  maxPushSpeed: 5
+  playerSmoothTime: 0.1
   showDebugRay: 1
 --- !u!1 &663781976602473479
 GameObject:

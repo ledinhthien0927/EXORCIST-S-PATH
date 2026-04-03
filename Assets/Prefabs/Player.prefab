@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4934407002497067712}
   - component: {fileID: 2843302314930096608}
+  - component: {fileID: 2132833384258773171}
   m_Layer: 0
   m_Name: HandRoot
   m_TagString: Untagged
@@ -55,6 +56,26 @@ MonoBehaviour:
     handObject: {fileID: 8408171833214827859}
   - poseType: 1
     handObject: {fileID: 939962981841067464}
+--- !u!114 &2132833384258773171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146752437828705176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75422d4707ded89478cfd963d32642c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pullBackStartDistance: 0.8
+  sphereRadius: 0.05
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 1
+  maxPullBack: 0.5
+  smoothTime: 0.08
+  showDebugRay: 1
 --- !u!1 &663781976602473479
 GameObject:
   m_ObjectHideFlags: 0

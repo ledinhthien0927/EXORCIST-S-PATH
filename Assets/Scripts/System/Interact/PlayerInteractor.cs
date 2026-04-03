@@ -160,20 +160,55 @@ public sealed class PlayerInteractor : MonoBehaviour
         UpdateDropButton();
     }
 
+    [Header("Drop Settings")]
+    [Tooltip("Khoảng cách drop mặc định phía trước camera")]
+    [SerializeField] private float dropDistance = 1.2f;
+
+    [Tooltip("Khoảng cách tối thiểu từ tường khi drop")]
+    [SerializeField] private float dropWallOffset = 0.15f;
+
+    [Tooltip("Layer tường để kiểm tra khi drop")]
+    [SerializeField] private LayerMask dropWallMask = ~0;
+
     public void OnDropButton()
     {
         if (inventory == null) return;
         if (!inventory.TryDrop(out GameObject obj)) return;
 
-        Vector3 dropPos = playerCamera != null
-            ? playerCamera.transform.position + playerCamera.transform.forward * 1.2f
-            : transform.position + transform.forward * 1.2f;
+        Vector3 dropPos = CalculateSafeDropPosition();
 
         IHoldable holdable = obj.GetComponent<IHoldable>();
         holdable?.OnDrop(dropPos);
 
         RefreshPickupUI();
         UpdateDropButton();
+    }
+
+    /// <summary>
+    /// Tính vị trí drop an toàn: raycast về phía trước, nếu có tường thì đặt item
+    /// trước tường thay vì xuyên qua.
+    /// </summary>
+    private Vector3 CalculateSafeDropPosition()
+    {
+        Transform cam = playerCamera != null ? playerCamera.transform : transform;
+        Vector3 origin = cam.position;
+        Vector3 forward = cam.forward;
+
+        float safeDist = dropDistance;
+
+        // Raycast để kiểm tra tường phía trước
+        if (Physics.Raycast(origin, forward, out RaycastHit hit, dropDistance, dropWallMask, QueryTriggerInteraction.Ignore))
+        {
+            // Đặt item trước tường, không xuyên qua
+            safeDist = Mathf.Max(hit.distance - dropWallOffset, 0.3f);
+        }
+
+        Vector3 dropPos = origin + forward * safeDist;
+
+        // Hạ xuống một chút để item không lơ lửng giữa không trung
+        dropPos.y -= 0.3f;
+
+        return dropPos;
     }
 
     public void RefreshUIAfterPickup()

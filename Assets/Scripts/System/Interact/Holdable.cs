@@ -17,8 +17,14 @@ public sealed class Holdable : MonoBehaviour, IHoldable
 
     private Transform currentHoldPoint;
     private bool isHeld;
+    private Vector3 originalLocalScale;
 
     public bool IsHeld => isHeld;
+
+    private void Awake()
+    {
+        originalLocalScale = transform.localScale;
+    }
 
     private void Reset()
     {
@@ -35,6 +41,7 @@ public sealed class Holdable : MonoBehaviour, IHoldable
 
         transform.localPosition += localPosition;
         transform.localRotation *= Quaternion.Euler(localRotation);
+        transform.localScale = originalLocalScale;
     }
 
     public void OnPick(Transform holdPoint)
@@ -54,9 +61,10 @@ public sealed class Holdable : MonoBehaviour, IHoldable
 
         SetColliders(false);
 
-        transform.SetParent(holdPoint, true);
+        transform.SetParent(holdPoint, false);
         transform.localPosition = localPosition;
         transform.localRotation = Quaternion.Euler(localRotation);
+        transform.localScale = originalLocalScale;
 
         if (handPoseManager != null)
             handPoseManager.SetPose(handPose);
@@ -71,6 +79,7 @@ public sealed class Holdable : MonoBehaviour, IHoldable
 
         transform.SetParent(null, true);
         transform.position = worldPosition;
+        transform.localScale = originalLocalScale;
 
         if (rb != null)
         {

@@ -5,11 +5,12 @@ using UnityEngine;
 /// Khi tường ở gần:
 ///   1. Kéo tay lùi lại (hand pull-back)
 ///   2. Đẩy player ra xa tường (player push-back)
+///   3. Tự động tăng khoảng cách detect khi đang cầm vật phẩm lớn
 /// </summary>
 public class HandWallAvoidance : MonoBehaviour
 {
     [Header("Detection")]
-    [Tooltip("Khoảng cách bắt đầu kéo tay lùi khi detect tường")]
+    [Tooltip("Khoảng cách cơ bản bắt đầu kéo tay lùi (khi tay không)")]
     [SerializeField] private float pullBackStartDistance = 0.8f;
 
     [Tooltip("Bán kính SphereCast")]
@@ -17,6 +18,16 @@ public class HandWallAvoidance : MonoBehaviour
 
     [Tooltip("Layer nào được coi là tường")]
     [SerializeField] private LayerMask wallMask = ~0;
+
+    [Header("Held Item Detection")]
+    [Tooltip("Reference đến PlayerInventory để biết đang cầm gì")]
+    [SerializeField] private PlayerInventory inventory;
+
+    [Tooltip("Khoảng cách detect thêm khi đang cầm vật phẩm (tự động tính từ bounds)")]
+    [SerializeField] private float heldItemExtraDistance = 0f;
+
+    [Tooltip("Nếu true, tự động tính extra distance từ renderer bounds của vật phẩm")]
+    [SerializeField] private bool autoDetectItemSize = true;
 
     [Header("Hand Pull Back")]
     [Tooltip("Khoảng cách kéo tay lùi tối đa (mét)")]
@@ -29,7 +40,7 @@ public class HandWallAvoidance : MonoBehaviour
     [Tooltip("Bật/tắt đẩy player ra khỏi tường")]
     [SerializeField] private bool enablePlayerPush = true;
 
-    [Tooltip("Khoảng cách tường bắt đầu đẩy player (nhỏ hơn pullBackStartDistance)")]
+    [Tooltip("Khoảng cách tường bắt đầu đẩy player")]
     [SerializeField] private float playerPushStartDistance = 0.5f;
 
     [Tooltip("Tốc độ đẩy player tối đa (m/s)")]
@@ -40,6 +51,8 @@ public class HandWallAvoidance : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private bool showDebugRay = false;
+    [SerializeField] private float debugEffectiveDistance;
+    [SerializeField] private string debugHeldItem = "None";
 
     private Camera mainCamera;
     private CharacterController characterController;
@@ -49,31 +62,36 @@ public class HandWallAvoidance : MonoBehaviour
     private float currentPushSpeed;
     private float pushSpeedVelocity;
 
+    // Cache để không tính bounds mỗi frame
+    private GameObject cachedHeldObject;
+    private float cachedExtraDistance;
+
     private void Awake()
     {
         originalLocalPosition = transform.localPosition;
-
         mainCamera = GetComponentInParent<Camera>();
 
-        // Tìm CharacterController trên Player root
         if (mainCamera != null)
             characterController = mainCamera.GetComponentInParent<CharacterController>();
 
+        // Tự tìm PlayerInventory nếu chưa gán
+        if (inventory == null && mainCamera != null)
+            inventory = mainCamera.GetComponentInParent<PlayerInventory>();
+
         if (mainCamera == null)
         {
-            Debug.LogWarning("[HandWallAvoidance] Không tìm thấy Camera trong parent. Script sẽ bị tắt.");
+            Debug.LogWarning("[HandWallAvoidance] Không tìm thấy Camera. Script bị tắt.");
             enabled = false;
-        }
-
-        if (enablePlayerPush && characterController == null)
-        {
-            Debug.LogWarning("[HandWallAvoidance] Không tìm thấy CharacterController. Player push-back sẽ bị tắt.");
         }
     }
 
     private void LateUpdate()
     {
         if (mainCamera == null) return;
+
+        // Tính effective distance dựa vào vật phẩm đang cầm
+        float effectiveDistance = pullBackStartDistance + GetHeldItemExtraDistance();
+        debugEffectiveDistance = effectiveDistance;
 
         Vector3 origin = mainCamera.transform.position;
         Vector3 direction = mainCamera.transform.forward;
@@ -83,10 +101,10 @@ public class HandWallAvoidance : MonoBehaviour
         Vector3 pushDirection = Vector3.zero;
 
         if (Physics.SphereCast(origin, sphereRadius, direction, out RaycastHit hit,
-            pullBackStartDistance, wallMask, QueryTriggerInteraction.Ignore))
+            effectiveDistance, wallMask, QueryTriggerInteraction.Ignore))
         {
             // === Hand pull-back ===
-            float handT = 1f - (hit.distance / pullBackStartDistance);
+            float handT = 1f - (hit.distance / effectiveDistance);
             targetHandPullBack = handT * maxHandPullBack;
 
             // === Player push-back ===
@@ -95,7 +113,6 @@ public class HandWallAvoidance : MonoBehaviour
                 float pushT = 1f - (hit.distance / playerPushStartDistance);
                 targetPushSpeed = pushT * maxPushSpeed;
 
-                // Đẩy player theo hướng ngược lại normal của tường (chỉ trên mặt phẳng XZ)
                 pushDirection = hit.normal;
                 pushDirection.y = 0f;
                 pushDirection.Normalize();
@@ -104,14 +121,14 @@ public class HandWallAvoidance : MonoBehaviour
             if (showDebugRay)
             {
                 Debug.DrawLine(origin, hit.point, Color.red);
-                if (pushDirection != Vector3.zero)
+                if (pushDirection != Vector3.zero && characterController != null)
                     Debug.DrawRay(characterController.transform.position, pushDirection * 0.5f, Color.yellow);
             }
         }
         else
         {
             if (showDebugRay)
-                Debug.DrawRay(origin, direction * pullBackStartDistance, Color.green);
+                Debug.DrawRay(origin, direction * effectiveDistance, Color.green);
         }
 
         // === Áp dụng hand pull-back ===
@@ -130,5 +147,57 @@ public class HandWallAvoidance : MonoBehaviour
                 characterController.Move(pushDirection * currentPushSpeed * Time.deltaTime);
             }
         }
+    }
+
+    /// <summary>
+    /// Tính khoảng cách thêm dựa vào kích thước vật phẩm đang cầm.
+    /// Dùng cache để tránh tính lại mỗi frame.
+    /// </summary>
+    private float GetHeldItemExtraDistance()
+    {
+        if (inventory == null || !inventory.HasItem)
+        {
+            cachedHeldObject = null;
+            cachedExtraDistance = 0f;
+            debugHeldItem = "None";
+            return 0f;
+        }
+
+        GameObject heldObj = inventory.CurrentObject;
+
+        // Nếu vẫn đang cầm cùng vật → dùng cache
+        if (heldObj == cachedHeldObject)
+            return cachedExtraDistance;
+
+        // Vật phẩm mới → tính lại
+        cachedHeldObject = heldObj;
+        debugHeldItem = heldObj.name;
+
+        if (!autoDetectItemSize)
+        {
+            cachedExtraDistance = heldItemExtraDistance;
+            return cachedExtraDistance;
+        }
+
+        // Tính bounds từ tất cả Renderer con
+        Renderer[] renderers = heldObj.GetComponentsInChildren<Renderer>(true);
+        if (renderers.Length == 0)
+        {
+            cachedExtraDistance = heldItemExtraDistance;
+            return cachedExtraDistance;
+        }
+
+        Bounds combinedBounds = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++)
+        {
+            combinedBounds.Encapsulate(renderers[i].bounds);
+        }
+
+        // Lấy kích thước lớn nhất (forward extent)
+        // Dùng max của extents vì vật phẩm có thể xoay
+        float maxExtent = Mathf.Max(combinedBounds.extents.x, combinedBounds.extents.y, combinedBounds.extents.z);
+        cachedExtraDistance = maxExtent;
+
+        return cachedExtraDistance;
     }
 }

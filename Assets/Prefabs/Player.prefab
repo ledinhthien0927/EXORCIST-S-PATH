@@ -73,13 +73,18 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 1
+  inventory: {fileID: 0}
+  heldItemExtraDistance: 0
+  autoDetectItemSize: 1
   maxHandPullBack: 1
-  handSmoothTime: 0.8
+  handSmoothTime: 0.08
   enablePlayerPush: 1
   playerPushStartDistance: 1
   maxPushSpeed: 5
   playerSmoothTime: 0.1
   showDebugRay: 1
+  debugEffectiveDistance: 0
+  debugHeldItem: None
 --- !u!1 &663781976602473479
 GameObject:
   m_ObjectHideFlags: 0

@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1d7856af725224588ce82ca9fc74b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customerPrefab: {fileID: 561119080701821732, guid: 805548a0c8d1f884c8021653f9971a07, type: 3}
+  customerPrefab: {fileID: 5273959240357072081, guid: dbef3824c28ebe54482151574a928c40, type: 3}
   customerSpawnPoint: {fileID: 1905647973}
   customerTargetPoint: {fileID: 1159258538}
   flySpeed: 2
@@ -1667,7 +1667,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3624447005956877247, guid: dd56730294b206b4fa2f640633331bb6, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 9109202166598891830, guid: dd56730294b206b4fa2f640633331bb6, type: 3}
       insertIndex: -1
@@ -3688,7 +3689,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3624447005956877247, guid: dd56730294b206b4fa2f640633331bb6, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 9109202166598891830, guid: dd56730294b206b4fa2f640633331bb6, type: 3}
       insertIndex: -1
@@ -9821,7 +9823,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3624447005956877247, guid: dd56730294b206b4fa2f640633331bb6, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 9109202166598891830, guid: dd56730294b206b4fa2f640633331bb6, type: 3}
       insertIndex: -1

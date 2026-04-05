@@ -175,7 +175,11 @@ public sealed class PlayerInteractor : MonoBehaviour
         if (inventory == null) return;
         if (!inventory.TryDrop(out GameObject obj)) return;
 
-        Vector3 dropPos = CalculateSafeDropPosition();
+        Vector3 forward = transform.forward;
+        forward.y = 0f;
+        forward.Normalize();
+
+        Vector3 dropPos = transform.position + forward * 1.2f + Vector3.up * 1f;
 
         IHoldable holdable = obj.GetComponent<IHoldable>();
         holdable?.OnDrop(dropPos);

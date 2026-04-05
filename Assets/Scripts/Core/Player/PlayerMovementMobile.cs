@@ -37,7 +37,7 @@ public class PlayerMovementMobile : MonoBehaviour
         if (downPressed) z -= 1f;
 
         Vector3 move = (transform.right * x + transform.forward * z).normalized;
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        Vector3 finalMove = move * moveSpeed;
 
         if (controller.isGrounded && velocity.y < 0f)
         {
@@ -45,7 +45,9 @@ public class PlayerMovementMobile : MonoBehaviour
         }
 
         velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        finalMove.y = velocity.y;
+
+        controller.Move(finalMove * Time.deltaTime);
     }
 
     public void SetUp(bool value) => upPressed = value;

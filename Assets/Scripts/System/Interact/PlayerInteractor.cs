@@ -24,8 +24,14 @@ public sealed class PlayerInteractor : MonoBehaviour
     private IInteractable currentTarget;
     private float lastSeenTime;
     private float lastSeenDistance;
-    private Collider lastHitCollider; // Optimization: Cache for the hit collider
-    private IInteractable lastHitTarget; // Optimization: Cache for the interactable result
+    private Collider lastHitCollider; 
+    private IInteractable lastHitTarget; 
+
+    private string lastPrompt = null;
+    private float nextUpdateTime = 0f;
+    private const float INTERACT_UPDATE_INTERVAL = 0.08f;
+    private bool lastHasItem = false;
+    private bool isInit = false;
 
     public Transform HoldPoint => holdPoint;
     public PlayerInventory Inventory => inventory;
@@ -41,7 +47,11 @@ public sealed class PlayerInteractor : MonoBehaviour
 
     private void Update()
     {
-        UpdateTarget();
+        if (Time.time >= nextUpdateTime)
+        {
+            UpdateTarget();
+            nextUpdateTime = Time.time + INTERACT_UPDATE_INTERVAL;
+        }
         UpdateDropButton();
     }
 
@@ -139,16 +149,35 @@ public sealed class PlayerInteractor : MonoBehaviour
 
     private void RefreshPickupUI()
     {
-        if (pickupButtonObject != null)
-            pickupButtonObject.SetActive(true);
-
         if (pickupButtonText == null)
             return;
 
+        string currentPrompt = "";
+        bool canInteract = false;
+
         if (currentTarget != null && currentTarget.CanInteract(this))
-            pickupButtonText.text = currentTarget.Prompt;
-        else
-            pickupButtonText.text = "";
+        {
+            currentPrompt = currentTarget.Prompt;
+            canInteract = true;
+        }
+
+        // Optimization: Only update the UI if the prompt text has actually changed.
+        // This is much faster on mobile since TMP.text triggers layout rebuilds.
+        if (currentPrompt != lastPrompt)
+        {
+            pickupButtonText.text = currentPrompt;
+            lastPrompt = currentPrompt;
+
+            // Optional: Hide/Disable button if no prompt
+            // if (pickupButtonObject != null)
+            //    pickupButtonObject.SetActive(!string.IsNullOrEmpty(currentPrompt));
+        }
+
+        // Only call SetActive if the state actually changes.
+        if (pickupButtonObject != null && !pickupButtonObject.activeSelf)
+        {
+            pickupButtonObject.SetActive(true);
+        }
     }
 
     public void OnPickupButton()
@@ -223,7 +252,14 @@ public sealed class PlayerInteractor : MonoBehaviour
 
     private void UpdateDropButton()
     {
-        if (dropButtonObject != null)
-            dropButtonObject.SetActive(inventory != null && inventory.HasItem);
+        if (dropButtonObject == null || inventory == null) return;
+        
+        bool hasItem = inventory.HasItem;
+        if (hasItem != lastHasItem || !isInit)
+        {
+            dropButtonObject.SetActive(hasItem);
+            lastHasItem = hasItem;
+            isInit = true;
+        }
     }
 }

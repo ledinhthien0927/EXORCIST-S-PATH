@@ -215,9 +215,10 @@ namespace ExorcistPath.Core.Managers
 
         public string GetRankString(float percentage)
         {
-            if (percentage >= 100f) return "Perfect";
-            if (percentage >= 80f) return "Clean";
-            if (percentage >= 60f) return "Acceptable";
+            int roundedPercent = Mathf.RoundToInt(percentage);
+            if (roundedPercent >= 100) return "Perfect";
+            if (roundedPercent >= 80) return "Clean";
+            if (roundedPercent >= 60) return "Acceptable";
             return "Poor";
         }
 
@@ -263,9 +264,10 @@ namespace ExorcistPath.Core.Managers
                 default: baseReward = 300000; break;
             }
 
-            if (percentage >= 100f) return Mathf.RoundToInt(baseReward * 1.45f); // Hoàn hảo
-            if (percentage >= 80f) return Mathf.RoundToInt(baseReward * 1.25f);  // Sạch
-            if (percentage >= 60f) return Mathf.RoundToInt(baseReward * 1.10f);  // Chấp nhận
+            int roundedPercent = Mathf.RoundToInt(percentage);
+            if (roundedPercent >= 100) return Mathf.RoundToInt(baseReward * 1.45f); // Hoàn hảo
+            if (roundedPercent >= 80) return Mathf.RoundToInt(baseReward * 1.25f);  // Sạch
+            if (roundedPercent >= 60) return Mathf.RoundToInt(baseReward * 1.10f);  // Chấp nhận
             return baseReward; // Kém (< 60%)
         }
     }

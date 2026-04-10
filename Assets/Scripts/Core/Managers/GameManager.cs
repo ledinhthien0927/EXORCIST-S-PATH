@@ -69,27 +69,32 @@ namespace ExorcistPath.Core.Managers
             var bloods = FindObjectsByType<CleanableBloodInteractable>(FindObjectsSortMode.None);
             var pickups = FindObjectsByType<PickupInteractable>(FindObjectsSortMode.None);
 
-            // Filter pickups that are NOT purification targets (e.g. tools like bucket/mop)
-            List<GameObject> filteredTargets = new List<GameObject>();
+            // Use a HashSet to ensure each GameObject is only counted once
+            HashSet<GameObject> uniqueTargets = new HashSet<GameObject>();
             
-            foreach (var b in bloods) filteredTargets.Add(b.gameObject);
+            foreach (var b in bloods)
+            {
+                if (b != null) uniqueTargets.Add(b.gameObject);
+            }
             
             foreach (var p in pickups)
             {
-                if (p.isPurificationTarget)
+                if (p != null && p.isPurificationTarget)
                 {
-                    filteredTargets.Add(p.gameObject);
+                    uniqueTargets.Add(p.gameObject);
                 }
             }
 
-            if (filteredTargets.Count == 0) return;
+            if (uniqueTargets.Count == 0) return;
 
-            purificationTargets = filteredTargets.ToArray();
+            purificationTargets = new GameObject[uniqueTargets.Count];
+            uniqueTargets.CopyTo(purificationTargets);
+            
             totalPurificationTargets = purificationTargets.Length;
             cleanedTargetsCount = 0;
             currentPurificationPercentage = 0f;
 
-            Debug.Log($"[GameManager] Auto-Collected {totalPurificationTargets} purification targets in Scene.");
+            Debug.Log($"[GameManager] Auto-Collected {totalPurificationTargets} UNIQUE purification targets in Scene.");
         }
 
         /// <summary>
